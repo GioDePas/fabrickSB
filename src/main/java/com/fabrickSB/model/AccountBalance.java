@@ -4,22 +4,12 @@ import java.util.Date;
 
 public class AccountBalance {
 
-	private String accountId;
 	private Date date;
 	private Number balance;
 	private Number availableBalance;
 	private String currency;
-	
-	public AccountBalance(String string) {
-		this.accountId = string;
-	}
 
-	public String getAccountId() {
-		return accountId;
-	}
-
-	public void setAccountId(String accountId) {
-		this.accountId = accountId;
+	public AccountBalance() {
 	}
 
 	public Date getDate() {
@@ -52,6 +42,12 @@ public class AccountBalance {
 
 	public void setCurrency(String currency) {
 		this.currency = currency;
+	}
+
+	@Override
+	public String toString() {
+		return "AccountBalance [date=" + date + ", balance=" + balance + ", availableBalance="
+				+ availableBalance + ", currency=" + currency + "]";
 	}
 	
 }

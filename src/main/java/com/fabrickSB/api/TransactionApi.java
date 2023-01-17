@@ -1,4 +1,4 @@
-package com.fabrickSB.api;
+/*package com.fabrickSB.api;
 
 import com.fabrickSB.config.ApiConfig;
 import com.fabrickSB.model.Transactions;
@@ -20,7 +20,6 @@ public class TransactionApi {
     public static Call<Transactions> getTransactions(String accountId, String fromAccountingDate, String toAccountingDate) {
         return service.getTransactions(accountId, fromAccountingDate, toAccountingDate);
     }
-			
-			;
 	
 }
+*/

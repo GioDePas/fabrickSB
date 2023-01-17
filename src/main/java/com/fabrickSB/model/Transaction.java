@@ -7,14 +7,14 @@ public class Transaction {
 	private String transactionId;
     private String operationId;
     private Date accountingDate;
-    private Date fromAccountingDate;
-    private Date toAccountingDate;
     private Date valueDate;
     private Type type;
     private Number amount;
     private String currency;
     private String description;
     
+	public Transaction() {}
+	
 	public String getTransactionId() {
 		return transactionId;
 	}
@@ -33,18 +33,7 @@ public class Transaction {
 	public void setAccountingDate(Date accountingDate) {
 		this.accountingDate = accountingDate;
 	}
-	public Date getFromAccountingDate() {
-		return fromAccountingDate;
-	}
-	public void setFromAccountingDate(Date fromAccountingDate) {
-		this.fromAccountingDate = fromAccountingDate;
-	}
-	public Date getToAccountingDate() {
-		return toAccountingDate;
-	}
-	public void setToAccountingDate(Date toAccountingDate) {
-		this.toAccountingDate = toAccountingDate;
-	}
+	
 	public Date getValueDate() {
 		return valueDate;
 	}
@@ -75,5 +64,12 @@ public class Transaction {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	@Override
+	public String toString() {
+		return "Transaction [transactionId=" + transactionId + ", operationId=" + operationId + ", accountingDate="
+				+ accountingDate + ", valueDate=" + valueDate + ", type=" + type + ", amount=" + amount + ", currency="
+				+ currency + ", description=" + description + "]";
+	}	
 	
 }
