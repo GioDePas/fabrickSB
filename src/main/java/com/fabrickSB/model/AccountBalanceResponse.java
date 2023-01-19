@@ -6,7 +6,6 @@ public class AccountBalanceResponse {
 
 	private String status;
 	private AccountBalance payload;
-	
 	private List<Object> error;
 
 	public String getStatus() {
@@ -32,6 +31,5 @@ public class AccountBalanceResponse {
 	public void setError(List<Object> error) {
 		this.error = error;
 	}
-	
 	
 }

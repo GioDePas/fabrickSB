@@ -1,34 +1,31 @@
-package com.fabrickSB.model;
+package com.fabrickSB.model.moneyTransferResponse;
 
 import java.util.List;
 
-public class TransactionResponse {
-	
-	private String status;
-	private Transactions payload;
-	
-	private List<Object> error;
+public class MoneyTransferPayload {
 
+	private String status;
+	private MoneyTransferResponse payload;
+	private List<Object> error;
+	
+	
+	
+	public MoneyTransferPayload() {}
 	public String getStatus() {
 		return status;
 	}
-
 	public void setStatus(String status) {
 		this.status = status;
 	}
-
-	public Transactions getPayload() {
+	public MoneyTransferResponse getPayload() {
 		return payload;
 	}
-
-	public void setPayload(Transactions payload) {
+	public void setPayload(MoneyTransferResponse payload) {
 		this.payload = payload;
 	}
-
 	public List<Object> getError() {
 		return error;
 	}
-
 	public void setError(List<Object> error) {
 		this.error = error;
 	}

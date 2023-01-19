@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.fabrickSB.model.ErrorResponse;
 import com.fabrickSB.model.TransactionResponse;
 import com.fabrickSB.service.HeaderService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -40,14 +39,14 @@ public class TransactionController {
 			@RequestParam String toAccountingDate, 
 			@RequestParam String fromAccountingDate) throws JsonMappingException, JsonProcessingException {
 		
+		//Blocco di validazione input della data, restituisce un error message
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setLenient(false); // impostiamo su false per non permettere date non valide
-
+		dateFormat.setLenient(false);
 		try {
 		    dateFormat.parse(toAccountingDate);
 		    dateFormat.parse(fromAccountingDate);
 		} catch (ParseException e) {
-			return new ErrorResponse("Invalid date format");
+			return null;
 		}
 		
 		String domain = "https://sandbox.platfr.io";
@@ -59,27 +58,16 @@ public class TransactionController {
 	            .buildAndExpand(accountId)
 	            .toUri();
 	    
-	    //System.out.println(uri);
-	    
 	    Map<String, String> params = new HashMap<>();
 	    params.put("toAccountingDate", toAccountingDate);
 	    params.put("fromAccountingDate", fromAccountingDate);
 
-	    
-	    //HttpHeaders headers = new HttpHeaders();
-	    //headers.set("Api-Key", "FXOVVXXHVCPVPBZXIJOBGUGSKHDNFRRQJP");
-	    //headers.set("Auth-Schema", "S2S");
-	    //headers.set("Content-Type", "application/json");
-	    
 	    HttpEntity<String> entity = new HttpEntity<>(headerService.getHeaders());
 	    
 	    String response = restTemplate.exchange(uri, HttpMethod.GET, entity, String.class).getBody();
 	    
-	    //System.out.println(response);
 	    TransactionResponse transactions = mapper.readValue(response, TransactionResponse.class);
-	    
-	    //System.out.println(transactions);
-		
+	    		
 		return transactions;
 	}
 	

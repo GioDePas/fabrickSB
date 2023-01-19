@@ -2,7 +2,7 @@ package com.fabrickSB.model;
 
 import java.util.List;
 
-public class TransactionPayload {
+public class Transactions {
 
 	private List<Transaction> list;
 

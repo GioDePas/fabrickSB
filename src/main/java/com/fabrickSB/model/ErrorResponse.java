@@ -1,6 +1,6 @@
 package com.fabrickSB.model;
 
-public class ErrorResponse extends TransactionResponse {
+public class ErrorResponse {
 
 	private String message;
 	

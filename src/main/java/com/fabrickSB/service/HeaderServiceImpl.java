@@ -13,6 +13,7 @@ public class HeaderServiceImpl implements HeaderService{
 		headers.set("Api-Key", "FXOVVXXHVCPVPBZXIJOBGUGSKHDNFRRQJP");
         headers.set("Auth-Schema", "S2S");
         headers.set("Content-Type", "application/json");
+        headers.set("X-Time-Zone", "Europe/Rome");
 		return headers;
 		
 	}
