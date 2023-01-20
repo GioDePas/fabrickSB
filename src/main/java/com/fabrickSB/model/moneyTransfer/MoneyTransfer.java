@@ -1,7 +1,5 @@
 package com.fabrickSB.model.moneyTransfer;
 
-import java.sql.Date;
-
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -10,14 +8,14 @@ public class MoneyTransfer {
 
 	@Valid
 	private Creditor creditor;
-	private Date executionDate;
+	private String executionDate;
     private String uri;
-    @NotNull(message = "Description obbligatorio")
+    @NotNull(message = "description obbligatorio")
     @Size(message = "Superato limite 140 caratteri")
     private String description;
-    @NotNull
+    @NotNull(message = "amount obbligatorio")
     private Number amount;
-    @NotNull
+    @NotNull(message = "currency obbligatorio")
     private String currency;
     private Boolean isUrgent;
     private Boolean isInstant;
@@ -25,8 +23,6 @@ public class MoneyTransfer {
     private String feeAccountId;
     @Valid
     private TaxRelief taxRelief;
-    
-	
 
 	public Creditor getCreditor() {
 		return creditor;
@@ -36,11 +32,11 @@ public class MoneyTransfer {
 		this.creditor = creditor;
 	}
 
-	public Date getExecutionDate() {
+	public String getExecutionDate() {
 		return executionDate;
 	}
 
-	public void setExecutionDate(Date executionDate) {
+	public void setExecutionDate(String executionDate) {
 		this.executionDate = executionDate;
 	}
 

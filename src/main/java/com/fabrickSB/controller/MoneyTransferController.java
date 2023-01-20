@@ -1,17 +1,22 @@
 package com.fabrickSB.controller;
 
 import java.net.URI;
+import java.nio.charset.Charset;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.fabrickSB.exception.BadRequestException;
+import com.fabrickSB.model.ErrorResponseList;
 import com.fabrickSB.model.moneyTransfer.MoneyTransfer;
 import com.fabrickSB.model.moneyTransferResponse.MoneyTransferPayload;
 import com.fabrickSB.service.HeaderService;
@@ -30,16 +35,14 @@ public class MoneyTransferController {
 	@Autowired
 	private HeaderService headerService;
 	
-	private final ObjectMapper mapper = new ObjectMapper();
-	
+	ObjectMapper mapper = new ObjectMapper();
+		
 	@PostMapping("/money-transfers/{accountId}")
-	public MoneyTransferPayload postMoneyTransfer(
+	public ResponseEntity<MoneyTransferPayload> postMoneyTransfer(
 			@PathVariable("accountId") String accountId, 
 			@Valid 
 			@RequestBody  MoneyTransfer moneyTransfer
 			) throws JsonMappingException, JsonProcessingException {
-				
-		System.out.println("RequestBody = " + moneyTransfer);
 		
 		String domain = "https://sandbox.platfr.io";
 		String endpoint = "/api/gbs/banking/v4.0/accounts/{accountId}/payments/money-transfers";
@@ -51,13 +54,20 @@ public class MoneyTransferController {
 		
 		HttpEntity<MoneyTransfer> entity = new HttpEntity<MoneyTransfer>(moneyTransfer, headerService.getHeaders());
 		
-	    String response = restTemplate.exchange(uri, HttpMethod.POST, entity, String.class).getBody();
+	    ResponseEntity<String> response;
 	    
-	    System.out.println(response);
-	    
-	    MoneyTransferPayload moneyTransferPayload = mapper.readValue(response, MoneyTransferPayload.class);
-	    
-		return moneyTransferPayload;
+	    try {
+	    	
+	    	response = restTemplate.exchange(uri, HttpMethod.POST, entity, String.class);
+	    	MoneyTransferPayload moneyTransferPayload = mapper.readValue(response.getBody(), MoneyTransferPayload.class);
+	    	return ResponseEntity.ok(moneyTransferPayload);
+			
+		} catch (HttpClientErrorException e) {
+			
+			ErrorResponseList error = mapper.readValue(e.getResponseBodyAsString(Charset.defaultCharset()), ErrorResponseList.class);
+			throw new BadRequestException(error);
+			
+		}
 		
 	}
 	
