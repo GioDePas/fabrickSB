@@ -16,6 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fabrickSB.exception.BadRequestException;
 import com.fabrickSB.model.AccountBalanceResponse;
+import com.fabrickSB.model.AppProperties;
 import com.fabrickSB.model.ErrorResponseList;
 import com.fabrickSB.service.HeaderService;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -33,16 +34,17 @@ public class AccountBalanceController {
 	
 	private final ObjectMapper mapper = new ObjectMapper();
 	
+	@Autowired
+	private AppProperties prop;
+	
 	@GetMapping("/balance/{accountId}")
 	public ResponseEntity<AccountBalanceResponse> getAccountBalance(
 			@PathVariable("accountId") String accountId
 			) throws JsonMappingException, JsonProcessingException {
-		
-		String domain = "https://sandbox.platfr.io";
-        String endpoint = "/api/gbs/banking/v4.0/accounts/{accountId}/balance";
+		        
         URI uri = UriComponentsBuilder
-        		.fromUriString(domain)
-                .path(endpoint)
+        		.fromUriString(prop.getDomain())
+                .path(prop.getCommonEndpoint() + prop.getAccountBalanceEndpoint())
                 .buildAndExpand(accountId)
                 .toUri();
         

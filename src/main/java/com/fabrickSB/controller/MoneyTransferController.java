@@ -55,7 +55,7 @@ public class MoneyTransferController {
 		HttpEntity<MoneyTransfer> entity = new HttpEntity<MoneyTransfer>(moneyTransfer, headerService.getHeaders());
 		
 	    ResponseEntity<String> response;
-	    
+
 	    try {
 	    	
 	    	response = restTemplate.exchange(uri, HttpMethod.POST, entity, String.class);

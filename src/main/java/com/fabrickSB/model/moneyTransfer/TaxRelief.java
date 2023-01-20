@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 public class TaxRelief {
 
 	private String taxReliefId;
-	//@NotNull(message = "isCondoUpgrade obbligatorio")
+	@NotNull(message = "isCondoUpgrade obbligatorio")
     private Boolean isCondoUpgrade;
 	@NotNull(message = "creditorFiscalCode obbligatorio")
     private String creditorFiscalCode;
@@ -32,7 +32,7 @@ public class TaxRelief {
 		return isCondoUpgrade;
 	}
 
-	public void setCondoUpgrade(Boolean isCondoUpgrade) {
+	public void setIsCondoUpgrade(Boolean isCondoUpgrade) {
 		this.isCondoUpgrade = isCondoUpgrade;
 	}
 
