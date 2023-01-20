@@ -9,9 +9,6 @@ public class AppProperties {
 	@Value("${DOMAIN}")
     private String domain;
 
-    @Value("${COMMON_ENDPOINT}")
-    private String commonEndpoint;
-
     @Value("${ACCOUNT_BALANCE_ENDPOINT}")
     private String accountBalanceEndpoint;
 
@@ -39,14 +36,6 @@ public class AppProperties {
 
 	public void setDomain(String domain) {
 		this.domain = domain;
-	}
-
-	public String getCommonEndpoint() {
-		return commonEndpoint;
-	}
-
-	public void setCommonEndpoint(String commonEndpoint) {
-		this.commonEndpoint = commonEndpoint;
 	}
 
 	public String getAccountBalanceEndpoint() {
