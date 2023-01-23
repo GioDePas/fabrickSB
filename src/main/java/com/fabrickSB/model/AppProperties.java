@@ -6,18 +6,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class AppProperties {
 
-	@Value("${DOMAIN}")
-    private String domain;
-
-    @Value("${ACCOUNT_BALANCE_ENDPOINT}")
-    private String accountBalanceEndpoint;
-
-    @Value("${TRANSACTION_ENDPOINT}")
-    private String transactionEndpoint;
-
-    @Value("${MONEY_TRANSFER_ENDPOINT}")
-    private String moneyTransferEndpoint;
-
     @Value("${API_KEY}")
     private String apiKey;
 
@@ -29,38 +17,6 @@ public class AppProperties {
 
     @Value("${X_TIME_ZONE}")
     private String xTimeZone;
-
-	public String getDomain() {
-		return domain;
-	}
-
-	public void setDomain(String domain) {
-		this.domain = domain;
-	}
-
-	public String getAccountBalanceEndpoint() {
-		return accountBalanceEndpoint;
-	}
-
-	public void setAccountBalanceEndpoint(String accountBalanceEndpoint) {
-		this.accountBalanceEndpoint = accountBalanceEndpoint;
-	}
-
-	public String getTransactionEndpoint() {
-		return transactionEndpoint;
-	}
-
-	public void setTransactionEndpoint(String transactionEndpoint) {
-		this.transactionEndpoint = transactionEndpoint;
-	}
-
-	public String getMoneyTransferEndpoint() {
-		return moneyTransferEndpoint;
-	}
-
-	public void setMoneyTransferEndpoint(String moneyTransferEndpoint) {
-		this.moneyTransferEndpoint = moneyTransferEndpoint;
-	}
 
 	public String getApiKey() {
 		return apiKey;
