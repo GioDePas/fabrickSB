@@ -1,19 +1,16 @@
 package com.fabrickSB;
-/*
+
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
-import org.mockito.quality.Strictness;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.client.RestTemplate;
@@ -22,13 +19,12 @@ import com.fabrickSB.model.AccountBalanceResponse;
 import com.fabrickSB.service.HeaderService;
 import com.fabrickSB.service.RestTemplateService;
 
-@MockitoSettings(strictness = Strictness.LENIENT)
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 public class AccountBalanceTest {
 
-	@Spy
-	private RestTemplate restTemplate = new RestTemplate();
+	@Mock
+	private RestTemplate restTemplate;
 	    
 	    @Mock
 	    private HeaderService headerService;
@@ -36,27 +32,28 @@ public class AccountBalanceTest {
 	    @InjectMocks
 	    private RestTemplateService rts;
 
-	    @Test
-	    public void givenMockingIsDoneByMockito_whenGetIsCalled_shouldReturnMockedObject() throws Exception {
-	
+	    @BeforeEach
+	    void init() {
 	    	Mockito
 	          .when(headerService.getHeaders())
 	          .thenReturn(new HttpHeaders());
-
+	    }
+	   
+	    @Test
+	    public void givenMockingIsDoneByMockito_whenGetIsCalled_shouldReturnMockedObject() throws Exception {
 	    	
 	        AccountBalanceResponse acr = new AccountBalanceResponse ();
 	        
-	        ResponseEntity<AccountBalanceResponse> entity = new ResponseEntity<AccountBalanceResponse>(HttpStatus.OK);
+	        ResponseEntity<AccountBalanceResponse> entity = ResponseEntity.ok(acr);
 	        
 	        Mockito
-	          .when(restTemplate.exchange("/test", HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), AccountBalanceResponse.class))
+	          .when(restTemplate.exchange("http://localhost:8080/balance", HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), AccountBalanceResponse.class))
 	          .thenReturn(entity);
 	        
-	        AccountBalanceResponse testedAcr = rts.getEntity("/test", "123", null, null);
+	        AccountBalanceResponse testedAcr = rts.getEntity("http://localhost:8080/balance", AccountBalanceResponse.class);
 	        Assertions.assertEquals(acr, testedAcr);
-	        
 	        
 	   }
 }
-*/	
+
 

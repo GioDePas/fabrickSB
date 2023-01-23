@@ -32,10 +32,8 @@ public class RestTemplateService {
 		HttpEntity<String> entity = new HttpEntity<String>(headerService.getHeaders());
         		
         try {
-            return restTemplate.exchange(url, HttpMethod.GET, entity, c/*, new HashMap<String, String>()*/).getBody(); //{{
-            	//put("fromAccountingDate", requestParams[0]);
-            	//put("toAccountingDate", requestParams[1]);
-            //}}).getBody();
+        	
+            return restTemplate.exchange(url, HttpMethod.GET, entity, c).getBody();
             
         } catch (HttpClientErrorException e) {    
         	//Se sbaglio account
