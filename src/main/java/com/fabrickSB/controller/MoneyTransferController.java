@@ -37,8 +37,7 @@ public class MoneyTransferController {
 		
 		MoneyTransferPayload moneyTransferPayload = rts.postEntity(url, MoneyTransferPayload.class, moneyTransfer);
 		
-		return ResponseEntity.ok(moneyTransferPayload);
-				
+		return ResponseEntity.ok(moneyTransferPayload);				
 	}
 	
 }

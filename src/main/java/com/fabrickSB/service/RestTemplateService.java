@@ -13,9 +13,10 @@ import org.springframework.web.client.RestTemplate;
 import com.fabrickSB.exception.BadRequestException;
 import com.fabrickSB.exception.ForbiddenException;
 import com.fabrickSB.model.ErrorResponseList;
-import com.fabrickSB.model.moneyTransfer.MoneyTransfer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
+//generics types per get e post
 @Service
 public class RestTemplateService {
 	
@@ -26,14 +27,15 @@ public class RestTemplateService {
 	private HeaderService headerService;
 	
 	private final ObjectMapper mapper = new ObjectMapper();
-		
-	public <T> T getEntity(String url, Class<T> c, String ... requestParams) throws Exception {
+	
+	
+	public <REQUEST> REQUEST getEntity(String url, Class<REQUEST> requestBody, String ... requestParams) throws Exception {
 		
 		HttpEntity<String> entity = new HttpEntity<String>(headerService.getHeaders());
         		
         try {
         	
-            return restTemplate.exchange(url, HttpMethod.GET, entity, c).getBody();
+            return restTemplate.exchange(url, HttpMethod.GET, entity, requestBody).getBody();
             
         } catch (HttpClientErrorException e) {    
         	//Se sbaglio account
@@ -49,12 +51,12 @@ public class RestTemplateService {
         }        
 	}
 	
-	public <T> T postEntity(String url, Class<T> c, MoneyTransfer moneyTransfer) throws Exception {
+	public <REQUEST, RESPONSE> REQUEST postEntity(String url, Class<REQUEST> requestBody, RESPONSE responseBody) throws Exception {
 		
-		HttpEntity<MoneyTransfer> entity = new HttpEntity<MoneyTransfer>(moneyTransfer, headerService.getHeaders());
+		HttpEntity<RESPONSE> entity = new HttpEntity<RESPONSE>(responseBody, headerService.getHeaders());
 		
         try {      	
-            return restTemplate.exchange(url, HttpMethod.POST, entity, c).getBody();
+            return restTemplate.exchange(url, HttpMethod.POST, entity, requestBody).getBody();
             
         } catch (HttpClientErrorException e) {     
         	//Se sbaglio account

@@ -54,9 +54,9 @@ public class TransactionController {
 				
 		String UrlQuery = url + "?fromAccountingDate=" + fromAccountingDate + "&toAccountingDate=" + toAccountingDate;
 				
-	    TransactionResponse transaction = rts.getEntity(UrlQuery, TransactionResponse.class, fromAccountingDate, toAccountingDate);
+	    TransactionResponse transactionResponse = rts.getEntity(UrlQuery, TransactionResponse.class, fromAccountingDate, toAccountingDate);
 	    	    
-	    return ResponseEntity.ok(transaction);
+	    return ResponseEntity.ok(transactionResponse);
 	    
 	}
 	

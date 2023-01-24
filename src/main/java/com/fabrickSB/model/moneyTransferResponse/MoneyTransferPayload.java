@@ -8,9 +8,8 @@ public class MoneyTransferPayload {
 	private MoneyTransferResponse payload;
 	private List<Object> error;
 	
-	
-	
 	public MoneyTransferPayload() {}
+	
 	public String getStatus() {
 		return status;
 	}

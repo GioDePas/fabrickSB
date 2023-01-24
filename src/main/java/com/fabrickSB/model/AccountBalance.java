@@ -9,8 +9,7 @@ public class AccountBalance {
 	private Number availableBalance;
 	private String currency;
 
-	public AccountBalance() {
-	}
+	public AccountBalance() {}
 
 	public Date getDate() {
 		return date;

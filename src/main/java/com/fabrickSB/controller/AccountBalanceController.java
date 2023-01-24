@@ -30,10 +30,9 @@ public class AccountBalanceController {
 		//Per popolare %s del file application.properties
 		url = String.format(url, accountId);
 				
-		AccountBalanceResponse accountBalance = rts.getEntity(url, AccountBalanceResponse.class); 
+		AccountBalanceResponse accountBalanceResponse = rts.getEntity(url, AccountBalanceResponse.class); 
 		
-	    return ResponseEntity.ok(accountBalance);
-		
+	    return ResponseEntity.ok(accountBalanceResponse);		
 	}
 	
 }
