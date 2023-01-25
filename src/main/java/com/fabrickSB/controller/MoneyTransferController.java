@@ -41,8 +41,12 @@ public class MoneyTransferController {
 		//Controllo che i valori di taxRelief non siano mai uguali a null e dentro ancora che contenga i valori indicati nell'enum in caso negativo: BadRequest
 		if (moneyTransfer.getTaxRelief() != null && moneyTransfer.getTaxRelief().getTaxReliefId() != null) {
 			if (!TaxReliefId.containsValue(moneyTransfer.getTaxRelief().getTaxReliefId())) {
-				throw new BadRequestException(new ErrorResponseList("KO"));
+				throw new BadRequestException(new ErrorResponseList("I valori di taxReliefId inseriti non sono corretti"));
 			}
+		}
+		
+		if (moneyTransfer.getIsInstant() == false && moneyTransfer.getExecutionDate() == null) {
+			throw new BadRequestException(new ErrorResponseList("La data è obbligatoria dal momento che il campo IsIstant è uguale a false"));
 		}
 		
 		MoneyTransferPayload moneyTransferPayload = rts.postEntity(url, MoneyTransferPayload.class, moneyTransfer);
