@@ -2,7 +2,6 @@ package com.fabrickSB.model.moneyTransfer;
 
 public class LegalPersonBeneficiary {
 
-	//@NotNull(message = "fiscalCode obbligatorio")
 	private String fiscalCode;
     private String legalRepresentativeFiscalCode;
     

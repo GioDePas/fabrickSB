@@ -57,9 +57,7 @@ public class TransactionController {
 		MultiValueMap<String, String> mappa = new LinkedMultiValueMap<String, String>();
 		mappa.add("toAccountingDate", toAccountingDate);
 		mappa.add("fromAccountingDate", fromAccountingDate);
-		
-		//String UrlQuery = url + "?fromAccountingDate=" + fromAccountingDate + "&toAccountingDate=" + toAccountingDate;
-				
+						
 	    TransactionResponse transactionResponse = rts.getEntity(url, TransactionResponse.class, mappa);
 	    	    
 	    return ResponseEntity.ok(transactionResponse);

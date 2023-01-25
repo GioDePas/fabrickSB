@@ -1,10 +1,7 @@
 package com.fabrickSB.model.moneyTransfer;
 
-import jakarta.validation.constraints.NotNull;
-
 public class NaturalPersonBeneficiary {
 
-	@NotNull(message = "fiscalcode1 obbligatorio")
 	private String fiscalCode1;
     private String fiscalCode2;
     private String fiscalCode3;
