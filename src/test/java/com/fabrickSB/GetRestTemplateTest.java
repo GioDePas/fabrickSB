@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -32,6 +33,9 @@ public class GetRestTemplateTest {
 
     @InjectMocks
     private RestTemplateService rts;
+    
+    @Value("${DOMAIN}")
+    private String domain;
 
     @BeforeEach
     void init() {
@@ -43,16 +47,16 @@ public class GetRestTemplateTest {
     @Test
     public void givenMockingIsDoneByMockito_whenGetIsCalled_shouldReturnMockedObject_AB() throws Exception {
     	
-    	AccountBalanceResponse acr = new AccountBalanceResponse();
+    	AccountBalanceResponse abr = new AccountBalanceResponse();
         
-        ResponseEntity<AccountBalanceResponse> abEntity = ResponseEntity.ok(acr);
+        ResponseEntity<AccountBalanceResponse> abEntity = ResponseEntity.ok(abr);
         
         Mockito
-          .when(restTemplate.exchange("http://localhost:8080/balance", HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), AccountBalanceResponse.class))
+          .when(restTemplate.exchange(domain + "/balance", HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), AccountBalanceResponse.class))
           .thenReturn(abEntity);
         
-        AccountBalanceResponse testedAcr = rts.getEntity("http://localhost:8080/balance", AccountBalanceResponse.class);
-        Assertions.assertEquals(acr, testedAcr);
+        AccountBalanceResponse testedAcr = rts.getEntity(domain + "/balance", AccountBalanceResponse.class);
+        Assertions.assertEquals(abr, testedAcr);
         
     }
     
@@ -64,10 +68,10 @@ public class GetRestTemplateTest {
         ResponseEntity<TransactionResponse> trEntity = ResponseEntity.ok(tr);
         
         Mockito
-          .when(restTemplate.exchange("http://localhost:8080/transactions", HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), TransactionResponse.class))
+          .when(restTemplate.exchange(domain + "/transactions", HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), TransactionResponse.class))
           .thenReturn(trEntity);
         
-        TransactionResponse testedTr = rts.getEntity("http://localhost:8080/transactions", TransactionResponse.class);
+        TransactionResponse testedTr = rts.getEntity(domain + "/transactions", TransactionResponse.class);
         Assertions.assertEquals(tr, testedTr);
         
    }

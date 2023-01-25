@@ -28,7 +28,6 @@ public class RestTemplateService {
 	
 	private final ObjectMapper mapper = new ObjectMapper();
 	
-	
 	public <REQUEST> REQUEST getEntity(String url, Class<REQUEST> requestBody, String ... requestParams) throws Exception {
 		
 		HttpEntity<String> entity = new HttpEntity<String>(headerService.getHeaders());

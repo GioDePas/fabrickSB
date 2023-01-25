@@ -10,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -41,6 +42,9 @@ public class PostRestTemplateTest {
 		
 	private String fileName = "testRequest.json";
 	
+	@Value("${DOMAIN}")
+    private String domain;
+	
     @BeforeEach
     void init() {
     	Mockito
@@ -60,10 +64,10 @@ public class PostRestTemplateTest {
     	ResponseEntity<MoneyTransferPayload> entity = ResponseEntity.ok(mtp);
     	
     	Mockito
-    		.when(restTemplate.exchange("http://localhost:8080/money-transfers", HttpMethod.POST, new HttpEntity<MoneyTransfer>(mt, new HttpHeaders()), MoneyTransferPayload.class))
+    		.when(restTemplate.exchange(domain + "/money-transfers", HttpMethod.POST, new HttpEntity<MoneyTransfer>(mt, new HttpHeaders()), MoneyTransferPayload.class))
     		.thenReturn(entity);
     	
-		MoneyTransferPayload testedMtp = rts.postEntity("http://localhost:8080/money-transfers", MoneyTransferPayload.class, mt);
+		MoneyTransferPayload testedMtp = rts.postEntity(domain + "/money-transfers", MoneyTransferPayload.class, mt);
     	Assertions.assertEquals(mtp, testedMtp);
     	
     }
