@@ -1,5 +1,7 @@
 package com.fabrickSB.model.moneyTransfer;
 
+import com.fabrickSB.enums.BeneficiaryType;
+
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
@@ -10,15 +12,13 @@ public class TaxRelief {
     private Boolean isCondoUpgrade;
 	@NotNull(message = "creditorFiscalCode obbligatorio")
     private String creditorFiscalCode;
-    private String beneficiaryType;
+    private BeneficiaryType beneficiaryType;
     @Valid
     private NaturalPersonBeneficiary naturalPersonBeneficiary;
     @Valid
     private LegalPersonBeneficiary legalPersonBeneficiary;
     
-	public TaxRelief() {
-		
-	}
+	public TaxRelief() {}
 
 	public String getTaxReliefId() {
 		return taxReliefId;
@@ -44,11 +44,11 @@ public class TaxRelief {
 		this.creditorFiscalCode = creditorFiscalCode;
 	}
 
-	public String getBeneficiaryType() {
+	public BeneficiaryType getBeneficiaryType() {
 		return beneficiaryType;
 	}
 
-	public void setBeneficiaryType(String beneficiaryType) {
+	public void setBeneficiaryType(BeneficiaryType beneficiaryType) {
 		this.beneficiaryType = beneficiaryType;
 	}
 

@@ -2,7 +2,7 @@ package com.fabrickSB.exception;
 
 import com.fabrickSB.model.ErrorResponseList;
 
-public class BadRequestException extends RuntimeException{
+public class BadRequestException extends RuntimeException {
 
 	private static final long serialVersionUID = -2901421369287682731L;
 	private ErrorResponseList error;

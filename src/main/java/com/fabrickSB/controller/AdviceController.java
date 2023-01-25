@@ -29,19 +29,19 @@ public class AdviceController {
 		
 		}
 	
-	@ExceptionHandler(BadRequestException.class)
-	public ResponseEntity<ErrorResponseList> exeption(BadRequestException ex) {	
-		
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(ex.getError());
-		
-		}
-	
 	@ExceptionHandler(ForbiddenException.class)
 	public ResponseEntity<ErrorResponseList> exception(ForbiddenException ex) {
 		
 		return ResponseEntity.status(HttpStatus.FORBIDDEN.value()).body(ex.getError());
 		
 	}
+	
+	@ExceptionHandler(BadRequestException.class)
+	public ResponseEntity<ErrorResponseList> exeption(BadRequestException ex) {	
+		
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(ex.getError());
+		
+		}
 	
 	//GENERICA
 	@ExceptionHandler(Exception.class)

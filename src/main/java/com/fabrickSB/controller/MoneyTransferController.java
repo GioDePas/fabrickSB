@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fabrickSB.enums.TaxReliefId;
+import com.fabrickSB.exception.BadRequestException;
+import com.fabrickSB.model.ErrorResponseList;
 import com.fabrickSB.model.moneyTransfer.MoneyTransfer;
 import com.fabrickSB.model.moneyTransferResponse.MoneyTransferPayload;
 import com.fabrickSB.service.RestTemplateService;
@@ -34,6 +37,13 @@ public class MoneyTransferController {
 		String url = domain + moneyTransferEndpoint;
 		//Per popolare %s del file application.properties
 		url = String.format(url, accountId);
+		
+		//Controllo che i valori di taxRelief non siano mai uguali a null e dentro ancora che contenga i valori indicati nell'enum in caso negativo: BadRequest
+		if (moneyTransfer.getTaxRelief() != null && moneyTransfer.getTaxRelief().getTaxReliefId() != null) {
+			if (!TaxReliefId.containsValue(moneyTransfer.getTaxRelief().getTaxReliefId())) {
+				throw new BadRequestException(new ErrorResponseList("KO"));
+			}
+		}
 		
 		MoneyTransferPayload moneyTransferPayload = rts.postEntity(url, MoneyTransferPayload.class, moneyTransfer);
 		

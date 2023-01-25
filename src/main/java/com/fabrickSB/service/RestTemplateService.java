@@ -1,6 +1,11 @@
 package com.fabrickSB.service;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -50,22 +55,26 @@ public class RestTemplateService {
         }        
 	}
 	
-	public <REQUEST, RESPONSE> REQUEST postEntity(String url, Class<REQUEST> requestBody, RESPONSE responseBody) throws Exception {
+	public <REQUEST, RESPONSE> RESPONSE postEntity(String url, Class<RESPONSE> responseBody, REQUEST requestBody) throws Exception {
 		
-		HttpEntity<RESPONSE> entity = new HttpEntity<RESPONSE>(responseBody, headerService.getHeaders());
+		HttpEntity<REQUEST> entity = new HttpEntity<REQUEST>(requestBody, headerService.getHeaders());
 		
         try {      	
-            return restTemplate.exchange(url, HttpMethod.POST, entity, requestBody).getBody();
+            return restTemplate.exchange(url, HttpMethod.POST, entity, responseBody).getBody();
             
         } catch (HttpClientErrorException e) {     
         	//Se sbaglio account
-			if (e.getStatusCode().value() == HttpStatus.FORBIDDEN.value()) {				
+			if (e.getStatusCode().value() == HttpStatus.FORBIDDEN.value()) {		
+				
 				ErrorResponseList error = mapper.readValue(e.getResponseBodyAsString(Charset.defaultCharset()), ErrorResponseList.class);
 				throw new ForbiddenException(error);		
-			}			
-        	//BADREQUEST
-        	ErrorResponseList error =  mapper.readValue(e.getResponseBodyAsString(Charset.defaultCharset()), ErrorResponseList.class);
+			}
+			//BADREQUEST
+			InputStream is = new ByteArrayInputStream(e.getResponseBodyAsString().getBytes());
+			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+        	ErrorResponseList error =  mapper.readValue(br.lines().collect(Collectors.joining("")), ErrorResponseList.class);
 	    	throw new BadRequestException(error); 
+	    	//GENERICA
         } catch(Exception e) {
 	    	throw new Exception(e.getMessage());  	    	
         }         

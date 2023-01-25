@@ -1,5 +1,7 @@
 package com.fabrickSB.model.moneyTransfer;
 
+import com.fabrickSB.enums.FeeType;
+
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -19,10 +21,14 @@ public class MoneyTransfer {
     private String currency;
     private Boolean isUrgent;
     private Boolean isInstant;
-    private String feeType;
+    private FeeType feeType;
     private String feeAccountId;
     @Valid
     private TaxRelief taxRelief;
+    
+	public MoneyTransfer() {
+		this.feeType = FeeType.SHA;
+	}
 
 	public Creditor getCreditor() {
 		return creditor;
@@ -88,11 +94,11 @@ public class MoneyTransfer {
 		this.isInstant = isInstant;
 	}
 
-	public String getFeeType() {
+	public FeeType getFeeType() {
 		return feeType;
 	}
 
-	public void setFeeType(String feeType) {
+	public void setFeeType(FeeType feeType) {
 		this.feeType = feeType;
 	}
 
