@@ -11,6 +11,9 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fabrickSB.controller.TransactionController;
 import com.fabrickSB.model.TransactionResponse;
@@ -34,7 +37,11 @@ public class TransactionControllerTest {
 	@Test
 	public void shouldReturnDefaultMessage() throws Exception {
 		
-		when(rts.getEntity(domain + "/transactions", TransactionResponse.class, "2019-01-01", "2020-01-01")).thenReturn(new TransactionResponse());
+		MultiValueMap<String, String> mappa = new LinkedMultiValueMap<String, String>();
+		mappa.add("toAccountingDate", "2020-01-01");
+		mappa.add("fromAccountingDate", "2019-01-01");
+		
+		when(rts.getEntity(UriComponentsBuilder.fromUriString(domain + "/transactions").queryParams(mappa).toUriString(), TransactionResponse.class, mappa)).thenReturn(new TransactionResponse());
 		this.mockMvc.perform(get(transactionsMapping).contentType("application/json")).andExpect(status().isOk());
 		
 	}

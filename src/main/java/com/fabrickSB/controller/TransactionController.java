@@ -7,6 +7,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,9 +54,13 @@ public class TransactionController {
 		//Per popolare %s del file application.properties
 		url = String.format(url, accountId);
 				
-		String UrlQuery = url + "?fromAccountingDate=" + fromAccountingDate + "&toAccountingDate=" + toAccountingDate;
+		MultiValueMap<String, String> mappa = new LinkedMultiValueMap<String, String>();
+		mappa.add("toAccountingDate", toAccountingDate);
+		mappa.add("fromAccountingDate", fromAccountingDate);
+		
+		//String UrlQuery = url + "?fromAccountingDate=" + fromAccountingDate + "&toAccountingDate=" + toAccountingDate;
 				
-	    TransactionResponse transactionResponse = rts.getEntity(UrlQuery, TransactionResponse.class, fromAccountingDate, toAccountingDate);
+	    TransactionResponse transactionResponse = rts.getEntity(url, TransactionResponse.class, mappa);
 	    	    
 	    return ResponseEntity.ok(transactionResponse);
 	    

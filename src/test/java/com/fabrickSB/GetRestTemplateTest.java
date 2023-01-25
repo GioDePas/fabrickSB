@@ -14,7 +14,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fabrickSB.model.AccountBalanceResponse;
 import com.fabrickSB.model.TransactionResponse;
@@ -51,11 +54,13 @@ public class GetRestTemplateTest {
         
         ResponseEntity<AccountBalanceResponse> abEntity = ResponseEntity.ok(abr);
         
+        //
         Mockito
           .when(restTemplate.exchange(domain + "/balance", HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), AccountBalanceResponse.class))
           .thenReturn(abEntity);
         
-        AccountBalanceResponse testedAcr = rts.getEntity(domain + "/balance", AccountBalanceResponse.class);
+        
+        AccountBalanceResponse testedAcr = rts.getEntity(domain + "/balance", AccountBalanceResponse.class, null);
         Assertions.assertEquals(abr, testedAcr);
         
     }
@@ -67,11 +72,15 @@ public class GetRestTemplateTest {
         
         ResponseEntity<TransactionResponse> trEntity = ResponseEntity.ok(tr);
         
+        MultiValueMap<String, String> mappa = new LinkedMultiValueMap<String, String>();
+		mappa.add("toAccountingDate", "2020-01-01");
+		mappa.add("fromAccountingDate", "2019-01-01");
+        
         Mockito
-          .when(restTemplate.exchange(domain + "/transactions", HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), TransactionResponse.class))
+          .when(restTemplate.exchange(UriComponentsBuilder.fromUriString(domain + "/transactions").queryParams(mappa).toUriString(), HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), TransactionResponse.class))
           .thenReturn(trEntity);
         
-        TransactionResponse testedTr = rts.getEntity(domain + "/transactions", TransactionResponse.class);
+        TransactionResponse testedTr = rts.getEntity(domain + "/transactions", TransactionResponse.class, mappa);
         Assertions.assertEquals(tr, testedTr);
         
    }

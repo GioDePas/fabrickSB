@@ -34,7 +34,7 @@ public class AccountBalanceControllerTest {
 	@Test
 	public void shouldReturnDefaultMessage() throws Exception {	
 		
-		when(rts.getEntity(domain + "/balance", AccountBalanceResponse.class)).thenReturn(new AccountBalanceResponse());
+		when(rts.getEntity(domain + "/balance", AccountBalanceResponse.class, null)).thenReturn(new AccountBalanceResponse());
 		this.mockMvc.perform(get(balanceMapping).contentType("application/json")).andExpect(status().isOk());
 		
 	}

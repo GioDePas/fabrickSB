@@ -12,8 +12,10 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fabrickSB.exception.BadRequestException;
 import com.fabrickSB.exception.ForbiddenException;
@@ -33,13 +35,13 @@ public class RestTemplateService {
 	
 	private final ObjectMapper mapper = new ObjectMapper();
 	
-	public <REQUEST> REQUEST getEntity(String url, Class<REQUEST> requestBody, String ... requestParams) throws Exception {
+	public <REQUEST> REQUEST getEntity(String url, Class<REQUEST> requestBody, MultiValueMap<String, String> mappa) throws Exception {
 		
 		HttpEntity<String> entity = new HttpEntity<String>(headerService.getHeaders());
         		
         try {
         	
-            return restTemplate.exchange(url, HttpMethod.GET, entity, requestBody).getBody();
+            return restTemplate.exchange(UriComponentsBuilder.fromUriString(url).queryParams(mappa).toUriString(), HttpMethod.GET, entity, requestBody).getBody();
             
         } catch (HttpClientErrorException e) {    
         	//Se sbaglio account
