@@ -27,8 +27,8 @@ import com.fabrickSB.service.RestTemplateService;
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 public class GetRestTemplateTest {
-	@Mock
-	private RestTemplate restTemplate;
+    @Mock
+    private RestTemplate restTemplate;
     @Mock
     private HeaderService headerService;
     @InjectMocks
@@ -38,41 +38,40 @@ public class GetRestTemplateTest {
 
     @BeforeEach
     void init() {
-    	Mockito
-          .when(headerService.getHeaders())
-          .thenReturn(new HttpHeaders());
+        Mockito
+                .when(headerService.getHeaders())
+                .thenReturn(new HttpHeaders());
     }
+
     @Test
     public void givenMockingIsDoneByMockito_whenGetIsCalled_shouldReturnMockedObject_AB() throws Exception {
-    	
-    	AccountBalanceResponse abr = new AccountBalanceResponse();
+
+        AccountBalanceResponse abr = new AccountBalanceResponse();
         ResponseEntity<AccountBalanceResponse> abEntity = ResponseEntity.ok(abr);
 
         Mockito
-          .when(restTemplate.exchange(domain + "/balance", HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), AccountBalanceResponse.class))
-          .thenReturn(abEntity);
+                .when(restTemplate.exchange(domain + "/balance", HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), AccountBalanceResponse.class))
+                .thenReturn(abEntity);
 
         AccountBalanceResponse testedAcr = rts.getEntity(domain + "/balance", AccountBalanceResponse.class, null);
         Assertions.assertEquals(abr, testedAcr);
     }
-    
+
     @Test
     public void givenMockingIsDoneByMockito_whenGetIsCalled_shouldReturnMockedObject_TR() throws Exception {
-        
+
         TransactionResponse tr = new TransactionResponse();
         ResponseEntity<TransactionResponse> trEntity = ResponseEntity.ok(tr);
-        
-        MultiValueMap<String, String> mappa = new LinkedMultiValueMap<String, String>();
-		mappa.add("toAccountingDate", "2020-01-01");
-		mappa.add("fromAccountingDate", "2019-01-01");
-        
+
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+        map.add("toAccountingDate", "2020-01-01");
+        map.add("fromAccountingDate", "2019-01-01");
+
         Mockito
-          .when(restTemplate.exchange(UriComponentsBuilder.fromUriString(domain + "/transactions").queryParams(mappa).toUriString(), HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), TransactionResponse.class))
-          .thenReturn(trEntity);
-        
-        TransactionResponse testedTr = rts.getEntity(domain + "/transactions", TransactionResponse.class, mappa);
+                .when(restTemplate.exchange(UriComponentsBuilder.fromUriString(domain + "/transactions").queryParams(map).toUriString(), HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), TransactionResponse.class))
+                .thenReturn(trEntity);
+
+        TransactionResponse testedTr = rts.getEntity(domain + "/transactions", TransactionResponse.class, map);
         Assertions.assertEquals(tr, testedTr);
-        
-   }
-    
+    }
 }

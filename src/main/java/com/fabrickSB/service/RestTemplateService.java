@@ -19,7 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fabrickSB.exception.BadRequestException;
 import com.fabrickSB.exception.ForbiddenException;
-import com.fabrickSB.model.errorsManagement.ErrorResponseList;
+import com.fabrickSB.errors.ErrorResponseList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 

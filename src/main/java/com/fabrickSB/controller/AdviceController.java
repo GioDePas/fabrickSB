@@ -2,7 +2,7 @@ package com.fabrickSB.controller;
 
 import java.util.List;
 
-import com.fabrickSB.model.errorsManagement.ErrorMessages;
+import com.fabrickSB.errors.ErrorMessages;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.fabrickSB.exception.BadRequestException;
 import com.fabrickSB.exception.ForbiddenException;
-import com.fabrickSB.model.errorsManagement.ErrorResponse;
-import com.fabrickSB.model.errorsManagement.ErrorResponseList;
+import com.fabrickSB.errors.ErrorResponse;
+import com.fabrickSB.errors.ErrorResponseList;
 
 @ControllerAdvice
 public class AdviceController {

@@ -1,6 +1,6 @@
 package com.fabrickSB.controller;
 
-import com.fabrickSB.model.errorsManagement.ErrorMessages;
+import com.fabrickSB.errors.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fabrickSB.enums.TaxReliefId;
 import com.fabrickSB.exception.BadRequestException;
-import com.fabrickSB.model.errorsManagement.ErrorResponseList;
-import com.fabrickSB.model.moneyTransfer.MoneyTransfer;
-import com.fabrickSB.model.moneyTransferResponse.MoneyTransferPayload;
+import com.fabrickSB.errors.ErrorResponseList;
+import com.fabrickSB.model.moneyTransfer.request.MoneyTransfer;
+import com.fabrickSB.model.moneyTransfer.response.MoneyTransferPayload;
 import com.fabrickSB.service.RestTemplateService;
 
 import jakarta.validation.Valid;

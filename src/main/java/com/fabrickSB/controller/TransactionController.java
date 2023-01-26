@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import com.fabrickSB.model.errorsManagement.ErrorMessages;
+import com.fabrickSB.errors.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fabrickSB.exception.BadRequestException;
-import com.fabrickSB.model.errorsManagement.ErrorResponse;
-import com.fabrickSB.model.errorsManagement.ErrorResponseList;
+import com.fabrickSB.errors.ErrorResponse;
+import com.fabrickSB.errors.ErrorResponseList;
 import com.fabrickSB.model.transaction.TransactionResponse;
 import com.fabrickSB.service.RestTemplateService;
 

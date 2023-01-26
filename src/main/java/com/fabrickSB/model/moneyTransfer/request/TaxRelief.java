@@ -1,4 +1,4 @@
-package com.fabrickSB.model.moneyTransfer;
+package com.fabrickSB.model.moneyTransfer.request;
 
 import com.fabrickSB.enums.BeneficiaryType;
 

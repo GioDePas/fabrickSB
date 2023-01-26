@@ -1,4 +1,4 @@
-package com.fabrickSB.model.errorsManagement;
+package com.fabrickSB.errors;
 
 public class ErrorMessages {
     public static final String WRONG_TAXRELIEF = "I valori di taxReliefId inseriti non sono corretti";

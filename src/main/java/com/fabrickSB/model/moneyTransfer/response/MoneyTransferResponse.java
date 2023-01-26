@@ -1,9 +1,9 @@
-package com.fabrickSB.model.moneyTransferResponse;
+package com.fabrickSB.model.moneyTransfer.response;
 
 import java.sql.Date;
 import java.util.List;
 
-import com.fabrickSB.model.moneyTransfer.Creditor;
+import com.fabrickSB.model.moneyTransfer.request.Creditor;
 import lombok.*;
 
 @NoArgsConstructor

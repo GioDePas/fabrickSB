@@ -1,6 +1,6 @@
-package com.fabrickSB.model.moneyTransferResponse;
+package com.fabrickSB.model.moneyTransfer.response;
 
-import com.fabrickSB.model.moneyTransfer.Account;
+import com.fabrickSB.model.moneyTransfer.request.Account;
 import lombok.*;
 
 @NoArgsConstructor

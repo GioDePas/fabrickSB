@@ -1,4 +1,4 @@
-package com.fabrickSB.model.errorsManagement;
+package com.fabrickSB.errors;
 
 import lombok.*;
 

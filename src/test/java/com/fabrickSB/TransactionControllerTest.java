@@ -22,20 +22,21 @@ import com.fabrickSB.service.RestTemplateService;
 @ActiveProfiles("test")
 @WebMvcTest(TransactionController.class)
 public class TransactionControllerTest {
-	@Autowired
-	private MockMvc mockMvc;
-	@MockBean
-	private RestTemplateService rts;
-	private String transactionsMapping = "/transactions/123?fromAccountingDate=2019-01-01&toAccountingDate=2020-01-01";
-	@Value("${DOMAIN}")
+    @Autowired
+    private MockMvc mockMvc;
+    @MockBean
+    private RestTemplateService rts;
+    private String transactionsMapping = "/transactions/123?fromAccountingDate=2019-01-01&toAccountingDate=2020-01-01";
+    @Value("${DOMAIN}")
     private String domain;
-	@Test
-	public void shouldReturnDefaultMessage() throws Exception {
-		MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-		map.add("toAccountingDate", "2020-01-01");
-		map.add("fromAccountingDate", "2019-01-01");
-		
-		when(rts.getEntity(UriComponentsBuilder.fromUriString(domain + "/transactions").queryParams(map).toUriString(), TransactionResponse.class, map)).thenReturn(new TransactionResponse());
-		this.mockMvc.perform(get(transactionsMapping).contentType("application/json")).andExpect(status().isOk());
-	}
+
+    @Test
+    public void shouldReturnDefaultMessage() throws Exception {
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("toAccountingDate", "2020-01-01");
+        map.add("fromAccountingDate", "2019-01-01");
+
+        when(rts.getEntity(UriComponentsBuilder.fromUriString(domain + "/transactions").queryParams(map).toUriString(), TransactionResponse.class, map)).thenReturn(new TransactionResponse());
+        this.mockMvc.perform(get(transactionsMapping).contentType("application/json")).andExpect(status().isOk());
+    }
 }

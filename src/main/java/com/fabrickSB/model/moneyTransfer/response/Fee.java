@@ -1,4 +1,4 @@
-package com.fabrickSB.model.moneyTransferResponse;
+package com.fabrickSB.model.moneyTransfer.response;
 
 import lombok.*;
 

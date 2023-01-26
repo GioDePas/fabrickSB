@@ -17,8 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import com.fabrickSB.controller.MoneyTransferController;
-import com.fabrickSB.model.moneyTransfer.MoneyTransfer;
-import com.fabrickSB.model.moneyTransferResponse.MoneyTransferPayload;
+import com.fabrickSB.model.moneyTransfer.request.MoneyTransfer;
+import com.fabrickSB.model.moneyTransfer.response.MoneyTransferPayload;
 import com.fabrickSB.service.RestTemplateService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

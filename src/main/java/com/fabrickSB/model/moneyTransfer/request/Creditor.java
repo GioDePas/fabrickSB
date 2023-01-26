@@ -1,4 +1,4 @@
-package com.fabrickSB.model.moneyTransfer;
+package com.fabrickSB.model.moneyTransfer.request;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
