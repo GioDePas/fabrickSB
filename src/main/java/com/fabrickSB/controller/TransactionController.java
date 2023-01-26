@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import com.fabrickSB.model.errorsManagement.ErrorMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +49,7 @@ public class TransactionController {
         } catch (ParseException e) {
             ErrorResponseList error = ErrorResponseList
                     .builder()
-                    .status("KO")
+                    .status(ErrorMessages.KO_MESSAGE)
                     .errors(List.of(ErrorResponse
                             .builder()
                             .description(e.getMessage())

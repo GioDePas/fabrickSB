@@ -31,9 +31,7 @@ public class MoneyTransferController {
     private String moneyTransferEndpoint;
 
     @PostMapping("/money-transfers/{accountId}")
-    public ResponseEntity<MoneyTransferPayload> postMoneyTransfer(
-            @PathVariable("accountId") String accountId,
-            @Valid @RequestBody MoneyTransfer moneyTransfer) throws Exception {
+    public ResponseEntity<MoneyTransferPayload> postMoneyTransfer(@PathVariable("accountId") String accountId, @Valid @RequestBody MoneyTransfer moneyTransfer) throws Exception {
 
         String url = domain + moneyTransferEndpoint;
         //Per popolare %s del file application.properties
@@ -46,6 +44,7 @@ public class MoneyTransferController {
             }
         }
 
+        //Rapporto tra data e isIstant
         if (!moneyTransfer.getIsInstant() && moneyTransfer.getExecutionDate() == null) {
             throw new BadRequestException(ErrorResponseList.builder().status(ErrorMessages.MANDATORY_DATA).build());
         }

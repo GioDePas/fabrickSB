@@ -28,33 +28,24 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 public class PostRestTemplateTest {
-
 	@Mock
 	private RestTemplate restTemplate;
-	    
     @Mock
     private HeaderService headerService;
-
     @InjectMocks
     private RestTemplateService rts;
-    
     private final ObjectMapper mapper = new ObjectMapper();
-		
 	private String fileName = "testRequest.json";
-	
 	@Value("${DOMAIN}")
     private String domain;
-	
     @BeforeEach
     void init() {
     	Mockito
           .when(headerService.getHeaders())
           .thenReturn(new HttpHeaders());
     }
-    
     @Test
     public void givenMockingIsDoneByMockito_whenGetIsCalled_shouldReturnMockedObject() throws Exception {
-    	
     	File file = new ClassPathResource(fileName).getFile();
     	
         MoneyTransfer mt = mapper.readValue(file ,MoneyTransfer.class);
@@ -69,7 +60,5 @@ public class PostRestTemplateTest {
     	
 		MoneyTransferPayload testedMtp = rts.postEntity(domain + "/money-transfers", MoneyTransferPayload.class, mt);
     	Assertions.assertEquals(mtp, testedMtp);
-    	
     }
-    
 }

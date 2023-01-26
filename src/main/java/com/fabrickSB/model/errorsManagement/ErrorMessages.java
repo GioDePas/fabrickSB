@@ -1,7 +1,5 @@
 package com.fabrickSB.model.errorsManagement;
 
-import lombok.Getter;
-@Getter
 public class ErrorMessages {
     public static final String WRONG_TAXRELIEF = "I valori di taxReliefId inseriti non sono corretti";
     public static final String MANDATORY_DATA = "La data è obbligatoria dal momento che il campo IsIstant è uguale a false";

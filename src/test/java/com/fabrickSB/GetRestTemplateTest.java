@@ -27,16 +27,12 @@ import com.fabrickSB.service.RestTemplateService;
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 public class GetRestTemplateTest {
-
 	@Mock
 	private RestTemplate restTemplate;
-	    
     @Mock
     private HeaderService headerService;
-
     @InjectMocks
     private RestTemplateService rts;
-    
     @Value("${DOMAIN}")
     private String domain;
 
@@ -46,30 +42,24 @@ public class GetRestTemplateTest {
           .when(headerService.getHeaders())
           .thenReturn(new HttpHeaders());
     }
-   
     @Test
     public void givenMockingIsDoneByMockito_whenGetIsCalled_shouldReturnMockedObject_AB() throws Exception {
     	
     	AccountBalanceResponse abr = new AccountBalanceResponse();
-        
         ResponseEntity<AccountBalanceResponse> abEntity = ResponseEntity.ok(abr);
-        
-        //
+
         Mockito
           .when(restTemplate.exchange(domain + "/balance", HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), AccountBalanceResponse.class))
           .thenReturn(abEntity);
-        
-        
+
         AccountBalanceResponse testedAcr = rts.getEntity(domain + "/balance", AccountBalanceResponse.class, null);
         Assertions.assertEquals(abr, testedAcr);
-        
     }
     
     @Test
     public void givenMockingIsDoneByMockito_whenGetIsCalled_shouldReturnMockedObject_TR() throws Exception {
         
         TransactionResponse tr = new TransactionResponse();
-        
         ResponseEntity<TransactionResponse> trEntity = ResponseEntity.ok(tr);
         
         MultiValueMap<String, String> mappa = new LinkedMultiValueMap<String, String>();

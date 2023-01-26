@@ -18,36 +18,27 @@ import com.fabrickSB.model.errorsManagement.ErrorResponseList;
 public class AdviceController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseList> exeption(MethodArgumentNotValidException ex) {
-
         List<ErrorResponse> errors = ex.getBindingResult().getFieldErrors().stream().map(err -> new ErrorResponse(ErrorMessages.INVALID_MESSAGE, err.getDefaultMessage(), err.getField())).toList();
-
-        ErrorResponseList responseList = ErrorResponseList.builder().status(ErrorMessages.KO_MESSAGE).errors(errors).build();
-
-        responseList.setErrors(errors);
-
+        ErrorResponseList responseList = ErrorResponseList
+                .builder()
+                .status(ErrorMessages.KO_MESSAGE)
+                .errors(errors)
+                .build();
+        responseList
+                .setErrors(errors);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(responseList);
-
     }
-
     @ExceptionHandler(ForbiddenException.class)
     public ResponseEntity<ErrorResponseList> exception(ForbiddenException ex) {
-
         return ResponseEntity.status(HttpStatus.FORBIDDEN.value()).body(ex.getError());
-
     }
-
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<ErrorResponseList> exeption(BadRequestException ex) {
-
         return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(ex.getError());
-
     }
-
-    //GENERICA
+    //GENERIC
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseList> exeption(Exception ex) {
-
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(ErrorResponseList.builder().status(ErrorMessages.KO_MESSAGE).build());
-
     }
 }
