@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fabrickSB.exception.BadRequestException;
+import com.fabrickSB.exceptions.BadRequestException;
 import com.fabrickSB.errors.ErrorResponse;
 import com.fabrickSB.errors.ErrorResponseList;
 import com.fabrickSB.model.transaction.TransactionResponse;
@@ -32,7 +32,6 @@ public class TransactionController {
 
     @Value("${TRANSACTION_ENDPOINT}")
     private String transactionEndpoint;
-
 
     @GetMapping("/transactions/{accountId}")
     public ResponseEntity<TransactionResponse> getTransactions(

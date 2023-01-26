@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fabrickSB.enums.TaxReliefId;
-import com.fabrickSB.exception.BadRequestException;
+import com.fabrickSB.exceptions.BadRequestException;
 import com.fabrickSB.errors.ErrorResponseList;
 import com.fabrickSB.model.moneyTransfer.request.MoneyTransfer;
 import com.fabrickSB.model.moneyTransfer.response.MoneyTransferPayload;

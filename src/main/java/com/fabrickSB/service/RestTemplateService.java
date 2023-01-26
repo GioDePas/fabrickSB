@@ -17,8 +17,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.fabrickSB.exception.BadRequestException;
-import com.fabrickSB.exception.ForbiddenException;
+import com.fabrickSB.exceptions.BadRequestException;
+import com.fabrickSB.exceptions.ForbiddenException;
 import com.fabrickSB.errors.ErrorResponseList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

@@ -1,4 +1,4 @@
-package com.fabrickSB.exception;
+package com.fabrickSB.exceptions;
 
 import com.fabrickSB.errors.ErrorResponseList;
 import lombok.*;
@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-public class ForbiddenException extends RuntimeException {
-    private static final long serialVersionUID = -3224233561364457224L;
+public class BadRequestException extends RuntimeException {
+    private static final long serialVersionUID = -2901421369287682731L;
     private ErrorResponseList error;
 }

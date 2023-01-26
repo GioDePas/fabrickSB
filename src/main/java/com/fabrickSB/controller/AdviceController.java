@@ -9,8 +9,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.fabrickSB.exception.BadRequestException;
-import com.fabrickSB.exception.ForbiddenException;
+import com.fabrickSB.exceptions.BadRequestException;
+import com.fabrickSB.exceptions.ForbiddenException;
 import com.fabrickSB.errors.ErrorResponse;
 import com.fabrickSB.errors.ErrorResponseList;
 
