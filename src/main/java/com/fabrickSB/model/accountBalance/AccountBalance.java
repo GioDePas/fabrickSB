@@ -1,4 +1,4 @@
-package com.fabrickSB.model;
+package com.fabrickSB.model.accountBalance;
 
 import lombok.*;
 

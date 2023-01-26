@@ -7,12 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fabrickSB.model.AccountBalanceResponse;
+import com.fabrickSB.model.accountBalance.AccountBalanceResponse;
 import com.fabrickSB.service.RestTemplateService;
 
 @RestController
 public class AccountBalanceController {
-	
 	@Autowired
 	private RestTemplateService rts;
 	
@@ -34,5 +33,4 @@ public class AccountBalanceController {
 		
 	    return ResponseEntity.ok(accountBalanceResponse);		
 	}
-	
 }

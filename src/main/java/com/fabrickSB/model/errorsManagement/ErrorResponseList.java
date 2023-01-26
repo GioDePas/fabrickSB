@@ -1,4 +1,4 @@
-package com.fabrickSB.model;
+package com.fabrickSB.model.errorsManagement;
 
 import lombok.*;
 
@@ -9,6 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@Builder
 public class ErrorResponseList {
 	private String status;
 	private List<ErrorResponse> errors;

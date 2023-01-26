@@ -1,5 +1,6 @@
-package com.fabrickSB.model;
+package com.fabrickSB.model.transaction;
 
+import com.fabrickSB.model.transaction.Transactions;
 import lombok.*;
 
 import java.util.List;

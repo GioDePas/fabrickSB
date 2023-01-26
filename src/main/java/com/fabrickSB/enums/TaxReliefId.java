@@ -3,7 +3,6 @@ package com.fabrickSB.enums;
 import java.util.Arrays;
 
 public enum TaxReliefId {
-
     INTERVENTI_SUPERBONUS("119R"),
     BONUS_FACCIATE("L027"),
     INTEREVENTI_ANTISISMICI("DL50"),
@@ -11,7 +10,6 @@ public enum TaxReliefId {
     RISPARMIO_ENERGETICO("L296"),
     RISTRUTTURAZIONE("L449"),
     BARRIERE_ARCHITETTONICHE("L234");
-
     private final String value;
 
     //controlla se i valori passati corrispondono ai valori dell'enum

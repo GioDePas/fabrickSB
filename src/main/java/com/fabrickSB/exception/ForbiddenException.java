@@ -1,6 +1,6 @@
 package com.fabrickSB.exception;
 
-import com.fabrickSB.model.ErrorResponseList;
+import com.fabrickSB.model.errorsManagement.ErrorResponseList;
 
 public class ForbiddenException extends RuntimeException {
 

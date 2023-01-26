@@ -13,7 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fabrickSB.controller.AccountBalanceController;
-import com.fabrickSB.model.AccountBalanceResponse;
+import com.fabrickSB.model.accountBalance.AccountBalanceResponse;
 import com.fabrickSB.service.RestTemplateService;
 
 @ActiveProfiles("test")

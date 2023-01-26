@@ -19,8 +19,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.fabrickSB.model.AccountBalanceResponse;
-import com.fabrickSB.model.TransactionResponse;
+import com.fabrickSB.model.accountBalance.AccountBalanceResponse;
+import com.fabrickSB.model.transaction.TransactionResponse;
 import com.fabrickSB.service.HeaderService;
 import com.fabrickSB.service.RestTemplateService;
 

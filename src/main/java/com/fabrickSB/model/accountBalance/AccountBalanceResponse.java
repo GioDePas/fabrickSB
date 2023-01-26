@@ -1,5 +1,6 @@
-package com.fabrickSB.model;
+package com.fabrickSB.model.accountBalance;
 
+import com.fabrickSB.model.accountBalance.AccountBalance;
 import lombok.*;
 
 import java.util.List;

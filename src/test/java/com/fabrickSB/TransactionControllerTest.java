@@ -16,7 +16,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fabrickSB.controller.TransactionController;
-import com.fabrickSB.model.TransactionResponse;
+import com.fabrickSB.model.transaction.TransactionResponse;
 import com.fabrickSB.service.RestTemplateService;
 
 @ActiveProfiles("test")

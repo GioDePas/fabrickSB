@@ -1,4 +1,4 @@
-package com.fabrickSB.model;
+package com.fabrickSB.model.errorsManagement;
 
 import lombok.*;
 
@@ -7,6 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
+@Builder
 public class ErrorResponse {
 	private String code;
 	private String description;

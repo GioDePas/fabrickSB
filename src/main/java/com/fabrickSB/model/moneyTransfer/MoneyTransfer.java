@@ -34,6 +34,6 @@ public class MoneyTransfer {
 
     //Per avere valore di default SHA
     public static class MoneyTransferBuilder {
-        private final FeeType feeType = FeeType.SHA;
+        private FeeType feeType = FeeType.SHA;
     }
 }

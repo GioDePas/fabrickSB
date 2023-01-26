@@ -19,7 +19,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fabrickSB.exception.BadRequestException;
 import com.fabrickSB.exception.ForbiddenException;
-import com.fabrickSB.model.ErrorResponseList;
+import com.fabrickSB.model.errorsManagement.ErrorResponseList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -50,9 +50,9 @@ public class RestTemplateService {
                 throw new ForbiddenException(error);
             }
             //BADREQUEST
-            ErrorResponseList error =  mapper.readValue(e.getResponseBodyAsString(Charset.defaultCharset()), ErrorResponseList.class);
+            ErrorResponseList error = mapper.readValue(e.getResponseBodyAsString(Charset.defaultCharset()), ErrorResponseList.class);
             throw new BadRequestException(error);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
@@ -74,10 +74,10 @@ public class RestTemplateService {
             //BADREQUEST
             InputStream is = new ByteArrayInputStream(e.getResponseBodyAsString().getBytes());
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
-            ErrorResponseList error =  mapper.readValue(br.lines().collect(Collectors.joining("")), ErrorResponseList.class);
+            ErrorResponseList error = mapper.readValue(br.lines().collect(Collectors.joining("")), ErrorResponseList.class);
             throw new BadRequestException(error);
             //GENERICA
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
     }
