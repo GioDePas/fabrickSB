@@ -26,60 +26,60 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 //generics types per get e post
 @Service
 public class RestTemplateService {
-	
-	@Autowired 
-	private RestTemplate restTemplate;
-	
-	@Autowired
-	private HeaderService headerService;
-	
-	private final ObjectMapper mapper = new ObjectMapper();
-	
-	public <REQUEST> REQUEST getEntity(String url, Class<REQUEST> requestBody, MultiValueMap<String, String> mappa) throws Exception {
-		
-		HttpEntity<String> entity = new HttpEntity<String>(headerService.getHeaders());
-        		
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private HeaderService headerService;
+
+    private final ObjectMapper mapper = new ObjectMapper();
+
+    public <REQUEST> REQUEST getEntity(String url, Class<REQUEST> requestBody, MultiValueMap<String, String> mappa) throws Exception {
+
+        HttpEntity<String> entity = new HttpEntity<String>(headerService.getHeaders());
+
         try {
-        	
+
             return restTemplate.exchange(UriComponentsBuilder.fromUriString(url).queryParams(mappa).toUriString(), HttpMethod.GET, entity, requestBody).getBody();
-            
-        } catch (HttpClientErrorException e) {    
-        	//Se sbaglio account
-			if (e.getStatusCode().value() == HttpStatus.FORBIDDEN.value()) {
-				ErrorResponseList error = mapper.readValue(e.getResponseBodyAsString(Charset.defaultCharset()), ErrorResponseList.class);
-				throw new ForbiddenException(error);
-			}			
-        	//BADREQUEST
-        	ErrorResponseList error =  mapper.readValue(e.getResponseBodyAsString(Charset.defaultCharset()), ErrorResponseList.class);
-	    	throw new BadRequestException(error);
-        } catch(Exception e) {   	
-	    	throw new Exception(e.getMessage());  	    	
-        }        
-	}
-	
-	public <REQUEST, RESPONSE> RESPONSE postEntity(String url, Class<RESPONSE> responseBody, REQUEST requestBody) throws Exception {
-		
-		HttpEntity<REQUEST> entity = new HttpEntity<REQUEST>(requestBody, headerService.getHeaders());
-		
-        try {      	
-            return restTemplate.exchange(url, HttpMethod.POST, entity, responseBody).getBody();
-            
-        } catch (HttpClientErrorException e) {     
-        	//Se sbaglio account
-			if (e.getStatusCode().value() == HttpStatus.FORBIDDEN.value()) {		
-				
-				ErrorResponseList error = mapper.readValue(e.getResponseBodyAsString(Charset.defaultCharset()), ErrorResponseList.class);
-				throw new ForbiddenException(error);		
-			}
-			//BADREQUEST
-			InputStream is = new ByteArrayInputStream(e.getResponseBodyAsString().getBytes());
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-        	ErrorResponseList error =  mapper.readValue(br.lines().collect(Collectors.joining("")), ErrorResponseList.class);
-	    	throw new BadRequestException(error); 
-	    	//GENERICA
+
+        } catch (HttpClientErrorException e) {
+            //Se sbaglio account
+            if (e.getStatusCode().value() == HttpStatus.FORBIDDEN.value()) {
+                ErrorResponseList error = mapper.readValue(e.getResponseBodyAsString(Charset.defaultCharset()), ErrorResponseList.class);
+                throw new ForbiddenException(error);
+            }
+            //BADREQUEST
+            ErrorResponseList error =  mapper.readValue(e.getResponseBodyAsString(Charset.defaultCharset()), ErrorResponseList.class);
+            throw new BadRequestException(error);
         } catch(Exception e) {
-	    	throw new Exception(e.getMessage());  	    	
-        }         
-	}
-	
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    public <REQUEST, RESPONSE> RESPONSE postEntity(String url, Class<RESPONSE> responseBody, REQUEST requestBody) throws Exception {
+
+        HttpEntity<REQUEST> entity = new HttpEntity<REQUEST>(requestBody, headerService.getHeaders());
+
+        try {
+            return restTemplate.exchange(url, HttpMethod.POST, entity, responseBody).getBody();
+
+        } catch (HttpClientErrorException e) {
+            //Se sbaglio account
+            if (e.getStatusCode().value() == HttpStatus.FORBIDDEN.value()) {
+
+                ErrorResponseList error = mapper.readValue(e.getResponseBodyAsString(Charset.defaultCharset()), ErrorResponseList.class);
+                throw new ForbiddenException(error);
+            }
+            //BADREQUEST
+            InputStream is = new ByteArrayInputStream(e.getResponseBodyAsString().getBytes());
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            ErrorResponseList error =  mapper.readValue(br.lines().collect(Collectors.joining("")), ErrorResponseList.class);
+            throw new BadRequestException(error);
+            //GENERICA
+        } catch(Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
 }

@@ -5,12 +5,18 @@ import com.fabrickSB.enums.FeeType;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+@Builder
 public class MoneyTransfer {
-
-	@Valid
-	private Creditor creditor;
-	private String executionDate;
+    @Valid
+    private Creditor creditor;
+    private String executionDate;
     private String uri;
     @NotNull(message = "description obbligatorio")
     @Size(message = "Superato limite 140 caratteri")
@@ -25,105 +31,9 @@ public class MoneyTransfer {
     private String feeAccountId;
     @Valid
     private TaxRelief taxRelief;
-    
-	public MoneyTransfer() {
-		this.feeType = FeeType.SHA;
-	}
 
-	public Creditor getCreditor() {
-		return creditor;
-	}
-
-	public void setCreditor(Creditor creditor) {
-		this.creditor = creditor;
-	}
-
-	public String getExecutionDate() {
-		return executionDate;
-	}
-
-	public void setExecutionDate(String executionDate) {
-		this.executionDate = executionDate;
-	}
-
-	public String getUri() {
-		return uri;
-	}
-
-	public void setUri(String uri) {
-		this.uri = uri;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Number getAmount() {
-		return amount;
-	}
-
-	public void setAmount(Number amount) {
-		this.amount = amount;
-	}
-
-	public String getCurrency() {
-		return currency;
-	}
-
-	public void setCurrency(String currency) {
-		this.currency = currency;
-	}
-
-	public Boolean getIsUrgent() {
-		return isUrgent;
-	}
-
-	public void setIsUrgent(Boolean isUrgent) {
-		this.isUrgent = isUrgent;
-	}
-
-	public Boolean getIsInstant() {
-		return isInstant;
-	}
-
-	public void setIsInstant(Boolean isInstant) {
-		this.isInstant = isInstant;
-	}
-
-	public FeeType getFeeType() {
-		return feeType;
-	}
-
-	public void setFeeType(FeeType feeType) {
-		this.feeType = feeType;
-	}
-
-	public String getFeeAccountId() {
-		return feeAccountId;
-	}
-
-	public void setFeeAccountId(String feeAccountId) {
-		this.feeAccountId = feeAccountId;
-	}
-
-	public TaxRelief getTaxRelief() {
-		return taxRelief;
-	}
-
-	public void setTaxRelief(TaxRelief taxRelief) {
-		this.taxRelief = taxRelief;
-	}
-
-	@Override
-	public String toString() {
-		return "MoneyTranfer [creditor=" + creditor + ", executionDate=" + executionDate + ", uri=" + uri
-				+ ", description=" + description + ", amount=" + amount + ", currency=" + currency + ", isUrgent="
-				+ isUrgent + ", isInstant=" + isInstant + ", feeType=" + feeType + ", feeAccountId=" + feeAccountId
-				+ ", taxRelief=" + taxRelief + "]";
-	}
-	
+    //Per avere valore di default SHA
+    public static class MoneyTransferBuilder {
+        private final FeeType feeType = FeeType.SHA;
+    }
 }
