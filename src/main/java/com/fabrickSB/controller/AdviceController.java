@@ -16,16 +16,24 @@ import com.fabrickSB.errors.ErrorResponseList;
 
 @ControllerAdvice
 public class AdviceController {
+    //Per la validation dei dati @Valid e @NotNull
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseList> exeption(MethodArgumentNotValidException ex) {
-        List<ErrorResponse> errors = ex.getBindingResult().getFieldErrors().stream().map(err -> new ErrorResponse(ErrorMessages.INVALID_MESSAGE, err.getDefaultMessage(), err.getField())).toList();
+        List<ErrorResponse> errors = ex
+                .getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(err -> new ErrorResponse(ErrorMessages.INVALID_MESSAGE, err.getDefaultMessage(), err.getField())).toList();
+
         ErrorResponseList responseList = ErrorResponseList
                 .builder()
                 .status(ErrorMessages.KO_MESSAGE)
                 .errors(errors)
                 .build();
+
         responseList
                 .setErrors(errors);
+
         return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(responseList);
     }
     @ExceptionHandler(ForbiddenException.class)
@@ -39,6 +47,14 @@ public class AdviceController {
     //GENERIC
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponseList> exeption(Exception ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(ErrorResponseList.builder().status(ErrorMessages.KO_MESSAGE).build());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .body(ErrorResponseList
+                        .builder()
+                        .status(ErrorMessages.KO_MESSAGE)
+                        .errors(List.of(ErrorResponse
+                                .builder()
+                                .description(ex.getMessage())
+                                .build()))
+                        .build());
     }
 }

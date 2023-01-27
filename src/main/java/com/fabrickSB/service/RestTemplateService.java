@@ -41,12 +41,12 @@ public class RestTemplateService {
             return restTemplate.exchange(UriComponentsBuilder.fromUriString(url).queryParams(map).toUriString(), HttpMethod.GET, entity, response).getBody();
 
         } catch (HttpClientErrorException e) {
-            //Se sbaglio account
+            //Se sbaglio account == FORBIDDEN 403
             if (e.getStatusCode().value() == HttpStatus.FORBIDDEN.value()) {
                 ErrorResponseList error = mapper.readValue(e.getResponseBodyAsString(Charset.defaultCharset()), ErrorResponseList.class);
                 throw new ForbiddenException(error);
             }
-            //BAD REQUEST
+            //BAD REQUEST 400
             ErrorResponseList error = mapper.readValue(e.getResponseBodyAsString(Charset.defaultCharset()), ErrorResponseList.class);
             throw new BadRequestException(error);
         } catch (Exception e) {
@@ -62,18 +62,17 @@ public class RestTemplateService {
             return restTemplate.exchange(url, HttpMethod.POST, entity, responseBody).getBody();
 
         } catch (HttpClientErrorException e) {
-            //Se sbaglio account
-            if (e.getStatusCode().value() == HttpStatus.FORBIDDEN.value()) {
-
+            //Se sbaglio account == FORBIDDEN 403
+            if (e.getStatusCode().value() == HttpStatus.FORBIDDEN.value()) { //403
                 ErrorResponseList error = mapper.readValue(e.getResponseBodyAsString(Charset.defaultCharset()), ErrorResponseList.class);
                 throw new ForbiddenException(error);
             }
-            //BAD REQUEST
+            //BAD REQUEST 400
             InputStream is = new ByteArrayInputStream(e.getResponseBodyAsString().getBytes());
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
             ErrorResponseList error = mapper.readValue(br.lines().collect(Collectors.joining("")), ErrorResponseList.class);
             throw new BadRequestException(error);
-            //GENERIC
+            //GENERIC 5xx
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
