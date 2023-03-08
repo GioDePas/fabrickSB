@@ -34,7 +34,6 @@ public class MoneyTransferControllerTest {
 	private RestTemplateService rts;
 	@Value("${DOMAIN}")
     private String domain;
-
 	private final ObjectMapper mapper = new ObjectMapper();
 	
 	@Test
@@ -53,7 +52,5 @@ public class MoneyTransferControllerTest {
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk());
-		
 	}
-	
 }

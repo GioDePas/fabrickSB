@@ -56,7 +56,10 @@ public class GetRestTemplateTest {
         ResponseEntity<AccountBalanceResponse> abEntity = ResponseEntity.ok(abr);
 
         Mockito
-                .when(restTemplate.exchange(domain + BALANCE, HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), AccountBalanceResponse.class))
+                .when(restTemplate.exchange(
+                        domain + BALANCE,
+                        HttpMethod.GET,
+                        new HttpEntity<String>(new HttpHeaders()), AccountBalanceResponse.class))
                 .thenReturn(abEntity);
 
         AccountBalanceResponse testedAcr = rts.getEntity(domain + BALANCE, AccountBalanceResponse.class, null);
@@ -65,7 +68,6 @@ public class GetRestTemplateTest {
 
     @Test
     public void givenMockingIsDoneByMockito_whenGetIsCalled_shouldReturnMockedObject_TR() throws Exception {
-
         TransactionResponse tr = new TransactionResponse();
         ResponseEntity<TransactionResponse> trEntity = ResponseEntity.ok(tr);
 
@@ -73,8 +75,9 @@ public class GetRestTemplateTest {
         map.add(TO_ACCOUNTING_DATE, DATE_TO);
         map.add(FROM_ACCOUNTING_DATE, DATE_FROM);
 
-        Mockito
-                .when(restTemplate.exchange(UriComponentsBuilder.fromUriString(domain + TRANSACTIONS).queryParams(map).toUriString(), HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), TransactionResponse.class))
+        Mockito.when(restTemplate.exchange(
+                UriComponentsBuilder.fromUriString(domain + TRANSACTIONS).queryParams(map).toUriString(),
+                        HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), TransactionResponse.class))
                 .thenReturn(trEntity);
 
         TransactionResponse testedTr = rts.getEntity(domain + TRANSACTIONS, TransactionResponse.class, map);

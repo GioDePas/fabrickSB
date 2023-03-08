@@ -55,7 +55,10 @@ public class PostRestTemplateTest {
         ResponseEntity<MoneyTransferPayload> entity = ResponseEntity.ok(mtp);
 
         Mockito
-                .when(restTemplate.exchange(domain + MONEY_TRANSFERS, HttpMethod.POST, new HttpEntity<>(mt, new HttpHeaders()), MoneyTransferPayload.class))
+                .when(restTemplate.exchange(
+                        domain + MONEY_TRANSFERS,
+                        HttpMethod.POST,
+                        new HttpEntity<>(mt, new HttpHeaders()), MoneyTransferPayload.class))
                 .thenReturn(entity);
 
         MoneyTransferPayload testedMtp = rts.postEntity(domain + MONEY_TRANSFERS, MoneyTransferPayload.class, mt);

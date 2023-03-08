@@ -43,7 +43,10 @@ public class TransactionControllerTest {
         map.add(TO_ACCOUNTING_DATE, DATE_TO);
         map.add(FROM_ACCOUNTING_DATE, DATE_FROM);
 
-        when(rts.getEntity(UriComponentsBuilder.fromUriString(domain + TRANSACTION).queryParams(map).toUriString(), TransactionResponse.class, map)).thenReturn(new TransactionResponse());
-        this.mockMvc.perform(get(TRANSACTION + FAKE_ENDPOINT + QUERY).contentType(CONTENT_TYPE)).andExpect(status().isOk());
+        when(rts.getEntity(
+                UriComponentsBuilder.fromUriString(domain + TRANSACTION).queryParams(map).toUriString(),
+                TransactionResponse.class, map)).thenReturn(new TransactionResponse());
+        this.mockMvc.perform(get(
+                TRANSACTION + FAKE_ENDPOINT + QUERY).contentType(CONTENT_TYPE)).andExpect(status().isOk());
     }
 }
