@@ -11,8 +11,8 @@ import lombok.*;
 @Setter
 @ToString
 public class Creditor {
-    @NotNull(message = "Creditor name obbligatorio")
-    @Size(max = 70, message = "Superato limite 70 caratteri")
+    @NotNull(message = "Creditor name mandatory")
+    @Size(message = "70 characters limit", max = 70)
     private String name;
     @Valid
     private Account account;

@@ -1,7 +1,7 @@
 package com.fabrickSB.controller;
 
 import com.fabrickSB.errors.ErrorMessages;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,20 +19,20 @@ import com.fabrickSB.service.RestTemplateService;
 import jakarta.validation.Valid;
 
 @RestController
+@RequiredArgsConstructor
 public class MoneyTransferController {
-
-    @Autowired
-    private RestTemplateService rts;
-
+    private final RestTemplateService rts;
     @Value("${DOMAIN}")
     private String domain;
-
     @Value("${MONEY_TRANSFER_ENDPOINT}")
     private String moneyTransferEndpoint;
 
     @PostMapping("/money-transfers/{accountId}")
-    public ResponseEntity<MoneyTransferPayload> postMoneyTransfer(@PathVariable("accountId") String accountId, @Valid @RequestBody MoneyTransfer moneyTransfer) throws Exception {
-
+    public ResponseEntity<MoneyTransferPayload> postMoneyTransfer(
+            @PathVariable("accountId") String accountId,
+            @Valid
+            @RequestBody MoneyTransfer moneyTransfer
+    ) throws Exception {
         String url = domain + moneyTransferEndpoint;
         //Per popolare %s del file application.properties
         url = String.format(url, accountId);
@@ -40,7 +40,7 @@ public class MoneyTransferController {
         //Controllo che i valori di taxRelief non siano mai uguali a null e dentro ancora che contenga i valori indicati nell'enum in caso negativo: BadRequest
         if (moneyTransfer.getTaxRelief() != null && moneyTransfer.getTaxRelief().getTaxReliefId() != null) {
             if (!TaxReliefId.containsValue(moneyTransfer.getTaxRelief().getTaxReliefId())) {
-                throw new BadRequestException(ErrorResponseList.builder().status(ErrorMessages.WRONG_TAXRELIEF).build());
+                throw new BadRequestException(ErrorResponseList.builder().status(ErrorMessages.WRONG_TAX_RELIEF).build());
             }
         }
 
@@ -53,5 +53,4 @@ public class MoneyTransferController {
 
         return ResponseEntity.ok(moneyTransferPayload);
     }
-
 }

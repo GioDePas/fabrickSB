@@ -7,8 +7,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -26,15 +25,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 //generics types per get e post
 @Service
+@RequiredArgsConstructor
 public class RestTemplateService {
-    @Autowired
-    private RestTemplate restTemplate;
-    @Autowired
-    private HeaderService headerService;
-    private final ObjectMapper mapper = new ObjectMapper();
+    private final RestTemplate restTemplate;
+    private final HeaderService headerService;
+    private final ObjectMapper mapper;
 
     public <RESPONSE> RESPONSE getEntity(String url, Class<RESPONSE> response, MultiValueMap<String, String> map) throws Exception {
-
         HttpEntity<String> entity = new HttpEntity<>(headerService.getHeaders());
 
         try {

@@ -13,9 +13,9 @@ import lombok.*;
 @ToString
 public class TaxRelief {
     private String taxReliefId;
-    @NotNull(message = "isCondoUpgrade obbligatorio")
+    @NotNull(message = "isCondoUpgrade mandatory")
     private Boolean isCondoUpgrade;
-    @NotNull(message = "creditorFiscalCode obbligatorio")
+    @NotNull(message = "creditorFiscalCode mandatory")
     private String creditorFiscalCode;
     private BeneficiaryType beneficiaryType;
     @Valid

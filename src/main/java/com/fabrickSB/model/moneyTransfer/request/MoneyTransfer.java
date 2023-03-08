@@ -18,12 +18,12 @@ public class MoneyTransfer {
     private Creditor creditor;
     private String executionDate;
     private String uri;
-    @NotNull(message = "description obbligatorio")
-    @Size(message = "Superato limite 140 caratteri")
+    @NotNull(message = "description mandatory")
+    @Size(message = "140 characters limit", max = 140)
     private String description;
-    @NotNull(message = "amount obbligatorio")
+    @NotNull(message = "amount mandatory")
     private Number amount;
-    @NotNull(message = "currency obbligatorio")
+    @NotNull(message = "currency mandatory")
     private String currency;
     private Boolean isUrgent;
     private Boolean isInstant;

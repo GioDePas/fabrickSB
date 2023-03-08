@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import com.fabrickSB.errors.ErrorMessages;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
@@ -22,14 +22,11 @@ import com.fabrickSB.model.transaction.TransactionResponse;
 import com.fabrickSB.service.RestTemplateService;
 
 @RestController
+@RequiredArgsConstructor
 public class TransactionController {
-
-    @Autowired
-    private RestTemplateService rts;
-
+    private final RestTemplateService rts;
     @Value("${DOMAIN}")
     private String domain;
-
     @Value("${TRANSACTION_ENDPOINT}")
     private String transactionEndpoint;
 
@@ -61,14 +58,12 @@ public class TransactionController {
         //Per popolare %s del file application.properties
         url = String.format(url, accountId);
 
-        MultiValueMap<String, String> mappa = new LinkedMultiValueMap<String, String>();
-        mappa.add("toAccountingDate", toAccountingDate);
-        mappa.add("fromAccountingDate", fromAccountingDate);
+        MultiValueMap<String, String> map = new LinkedMultiValueMap< >();
+        map.add("toAccountingDate", toAccountingDate);
+        map.add("fromAccountingDate", fromAccountingDate);
 
-        TransactionResponse transactionResponse = rts.getEntity(url, TransactionResponse.class, mappa);
+        TransactionResponse transactionResponse = rts.getEntity(url, TransactionResponse.class, map);
 
         return ResponseEntity.ok(transactionResponse);
-
     }
-
 }

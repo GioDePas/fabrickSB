@@ -9,7 +9,7 @@ import lombok.*;
 @Setter
 @ToString
 public class Account {
-    @NotNull(message = "AccountCode obbligatorio")
+    @NotNull(message = "Account code mandatory")
     private String accountCode;
     private String bicCode;
 }

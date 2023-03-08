@@ -18,7 +18,7 @@ import com.fabrickSB.errors.ErrorResponseList;
 public class AdviceController {
     //Per la validation dei dati @Valid e @NotNull
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponseList> exeption(MethodArgumentNotValidException ex) {
+    public ResponseEntity<ErrorResponseList> exception(MethodArgumentNotValidException ex) {
         List<ErrorResponse> errors = ex
                 .getBindingResult()
                 .getFieldErrors()
@@ -30,7 +30,6 @@ public class AdviceController {
                 .status(ErrorMessages.KO_MESSAGE)
                 .errors(errors)
                 .build();
-
         responseList
                 .setErrors(errors);
 
@@ -41,12 +40,12 @@ public class AdviceController {
         return ResponseEntity.status(HttpStatus.FORBIDDEN.value()).body(ex.getError());
     }
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<ErrorResponseList> exeption(BadRequestException ex) {
+    public ResponseEntity<ErrorResponseList> exception(BadRequestException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(ex.getError());
     }
     //GENERIC
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponseList> exeption(Exception ex) {
+    public ResponseEntity<ErrorResponseList> exception(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .body(ErrorResponseList
                         .builder()

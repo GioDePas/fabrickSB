@@ -9,7 +9,7 @@ import lombok.*;
 @Setter
 @ToString
 public class Address {
-    @Size(message = "Superato limite 40 caratteri")
+    @Size(message = "40 characters limit", max = 40)
     private String address;
     private String city;
     private String countryCode;
