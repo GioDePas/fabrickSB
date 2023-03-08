@@ -22,21 +22,28 @@ import com.fabrickSB.service.RestTemplateService;
 @ActiveProfiles("test")
 @WebMvcTest(TransactionController.class)
 public class TransactionControllerTest {
+    private static final String TO_ACCOUNTING_DATE = "toAccountingDate";
+    private static final String FROM_ACCOUNTING_DATE = "fromAccountingDate";
+    private static final String DATE_TO = "2020-01-01";
+    private static final String DATE_FROM = "2019-01-01";
+    private static final String CONTENT_TYPE = "application/json";
+    private static final String TRANSACTION = "/transactions";
+    private static final String FAKE_ENDPOINT = "/123";
+    private static final String QUERY = "?" + FROM_ACCOUNTING_DATE + "=" + DATE_FROM + "&" + TO_ACCOUNTING_DATE + "=" + DATE_TO;
     @Autowired
     private MockMvc mockMvc;
     @MockBean
     private RestTemplateService rts;
-    private String transactionsMapping = "/transactions/123?fromAccountingDate=2019-01-01&toAccountingDate=2020-01-01";
     @Value("${DOMAIN}")
     private String domain;
 
     @Test
     public void shouldReturnDefaultMessage() throws Exception {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("toAccountingDate", "2020-01-01");
-        map.add("fromAccountingDate", "2019-01-01");
+        map.add(TO_ACCOUNTING_DATE, DATE_TO);
+        map.add(FROM_ACCOUNTING_DATE, DATE_FROM);
 
-        when(rts.getEntity(UriComponentsBuilder.fromUriString(domain + "/transactions").queryParams(map).toUriString(), TransactionResponse.class, map)).thenReturn(new TransactionResponse());
-        this.mockMvc.perform(get(transactionsMapping).contentType("application/json")).andExpect(status().isOk());
+        when(rts.getEntity(UriComponentsBuilder.fromUriString(domain + TRANSACTION).queryParams(map).toUriString(), TransactionResponse.class, map)).thenReturn(new TransactionResponse());
+        this.mockMvc.perform(get(TRANSACTION + FAKE_ENDPOINT + QUERY).contentType(CONTENT_TYPE)).andExpect(status().isOk());
     }
 }

@@ -13,15 +13,18 @@ import com.fabrickSB.service.RestTemplateService;
 @RestController
 @RequiredArgsConstructor
 public class AccountBalanceController {
+	private final static String ACCOUNT_ID = "accountId";
+	private final static String ACCOUNT_BALANCE_ENDPOINT = "/balance/{accountId}";
 	private final RestTemplateService rts;
 	@Value("${DOMAIN}")
     private String domain;
 	@Value("${ACCOUNT_BALANCE_ENDPOINT}")
     private String accountBalanceEndpoint;
 
-	@GetMapping("/balance/{accountId}")
+	@GetMapping(ACCOUNT_BALANCE_ENDPOINT)
 	public ResponseEntity<AccountBalanceResponse> getAccountBalance(
-			@PathVariable("accountId") String accountId) throws Exception {
+			@PathVariable(ACCOUNT_ID) String accountId
+	) throws Exception {
 		
 		String url = domain + accountBalanceEndpoint;
 		//Per popolare %s del file application.properties

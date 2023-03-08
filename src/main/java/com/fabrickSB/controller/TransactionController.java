@@ -24,20 +24,25 @@ import com.fabrickSB.service.RestTemplateService;
 @RestController
 @RequiredArgsConstructor
 public class TransactionController {
+    private static final String SIMPLE_DATE_FORMAT = "yyyy-MM-dd";
+    private static final String TO_ACCOUNTING_DATE = "toAccountingDate";
+    private static final String FROM_ACCOUNTING_DATE = "fromAccountingDate";
+    private static final String ACCOUNT_ID = "accountId";
+    private static final String TRANSACTION_ENDPOINT = "/transactions/{accountId}";
     private final RestTemplateService rts;
     @Value("${DOMAIN}")
     private String domain;
     @Value("${TRANSACTION_ENDPOINT}")
     private String transactionEndpoint;
 
-    @GetMapping("/transactions/{accountId}")
+    @GetMapping(TRANSACTION_ENDPOINT)
     public ResponseEntity<TransactionResponse> getTransactions(
-            @PathVariable("accountId") String accountId,
+            @PathVariable(ACCOUNT_ID) String accountId,
             @RequestParam String toAccountingDate,
             @RequestParam String fromAccountingDate) throws Exception {
 
         //Blocco di validazione input della data
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(SIMPLE_DATE_FORMAT);
         dateFormat.setLenient(false);
         try {
             dateFormat.parse(toAccountingDate);
@@ -58,9 +63,9 @@ public class TransactionController {
         //Per popolare %s del file application.properties
         url = String.format(url, accountId);
 
-        MultiValueMap<String, String> map = new LinkedMultiValueMap< >();
-        map.add("toAccountingDate", toAccountingDate);
-        map.add("fromAccountingDate", fromAccountingDate);
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add(TO_ACCOUNTING_DATE, toAccountingDate);
+        map.add(FROM_ACCOUNTING_DATE, fromAccountingDate);
 
         TransactionResponse transactionResponse = rts.getEntity(url, TransactionResponse.class, map);
 

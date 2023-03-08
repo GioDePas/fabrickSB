@@ -28,6 +28,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 public class PostRestTemplateTest {
+    private static final String MONEY_TRANSFERS = "/money-transfers";
+    private static final String FILE_NAME = "testRequest.json";
     @Mock
     private RestTemplate restTemplate;
     @Mock
@@ -35,7 +37,6 @@ public class PostRestTemplateTest {
     @InjectMocks
     private RestTemplateService rts;
     private final ObjectMapper mapper = new ObjectMapper();
-    private String fileName = "testRequest.json";
     @Value("${DOMAIN}")
     private String domain;
 
@@ -48,19 +49,16 @@ public class PostRestTemplateTest {
 
     @Test
     public void givenMockingIsDoneByMockito_whenGetIsCalled_shouldReturnMockedObject() throws Exception {
-        File file = new ClassPathResource(fileName).getFile();
-
+        File file = new ClassPathResource(FILE_NAME).getFile();
         MoneyTransfer mt = mapper.readValue(file, MoneyTransfer.class);
-
         MoneyTransferPayload mtp = new MoneyTransferPayload();
-
         ResponseEntity<MoneyTransferPayload> entity = ResponseEntity.ok(mtp);
 
         Mockito
-                .when(restTemplate.exchange(domain + "/money-transfers", HttpMethod.POST, new HttpEntity<MoneyTransfer>(mt, new HttpHeaders()), MoneyTransferPayload.class))
+                .when(restTemplate.exchange(domain + MONEY_TRANSFERS, HttpMethod.POST, new HttpEntity<>(mt, new HttpHeaders()), MoneyTransferPayload.class))
                 .thenReturn(entity);
 
-        MoneyTransferPayload testedMtp = rts.postEntity(domain + "/money-transfers", MoneyTransferPayload.class, mt);
+        MoneyTransferPayload testedMtp = rts.postEntity(domain + MONEY_TRANSFERS, MoneyTransferPayload.class, mt);
         Assertions.assertEquals(mtp, testedMtp);
     }
 }

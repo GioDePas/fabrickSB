@@ -19,17 +19,19 @@ import com.fabrickSB.service.RestTemplateService;
 @ActiveProfiles("test")
 @WebMvcTest(AccountBalanceController.class)
 public class AccountBalanceControllerTest {
+    private static final String BALANCE = "/balance";
+    private static final String CONTENT_TYPE = "application/json";
+    private static final String FAKE_ENDPOINT = "/123";
     @Autowired
     private MockMvc mockMvc;
     @MockBean
     private RestTemplateService rts;
-    private String balanceMapping = "/balance/123";
     @Value("${DOMAIN}")
     private String domain;
 
     @Test
     public void shouldReturnDefaultMessage() throws Exception {
-        when(rts.getEntity(domain + "/balance", AccountBalanceResponse.class, null)).thenReturn(new AccountBalanceResponse());
-        this.mockMvc.perform(get(balanceMapping).contentType("application/json")).andExpect(status().isOk());
+        when(rts.getEntity(domain + BALANCE, AccountBalanceResponse.class, null)).thenReturn(new AccountBalanceResponse());
+        this.mockMvc.perform(get(BALANCE + FAKE_ENDPOINT).contentType(CONTENT_TYPE)).andExpect(status().isOk());
     }
 }

@@ -22,8 +22,6 @@ import com.fabrickSB.exceptions.ForbiddenException;
 import com.fabrickSB.errors.ErrorResponseList;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-
-//generics types per get e post
 @Service
 @RequiredArgsConstructor
 public class RestTemplateService {

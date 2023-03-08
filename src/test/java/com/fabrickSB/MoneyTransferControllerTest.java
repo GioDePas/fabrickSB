@@ -25,31 +25,28 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @ActiveProfiles("test")
 @WebMvcTest(MoneyTransferController.class)
 public class MoneyTransferControllerTest {
-
+	private static final String MONEY_TRANSFERS = "/money-transfers";
+	private static final String FAKE_ENDPOINT = "/123";
+	private static final String FILE_NAME = "testRequest.json";
 	@Autowired
 	private MockMvc mockMvc;
-	
 	@MockBean
 	private RestTemplateService rts;
-	
-	private String moneyTransfersMapping = "/money-transfers/123";
-	
 	@Value("${DOMAIN}")
     private String domain;
-	
-	private String fileName = "testRequest.json";
-		
+
 	private final ObjectMapper mapper = new ObjectMapper();
 	
 	@Test
 	public void shouldReturnDefaultMessage() throws Exception {
-		
-    	File file = new ClassPathResource(fileName).getFile();
+
+		File file = new ClassPathResource(FILE_NAME).getFile();
 
     	MoneyTransfer mt = mapper.readValue(file ,MoneyTransfer.class);
     	    	
-		when(rts.postEntity(domain + "/money-transfers", MoneyTransferPayload.class, mt))
+		when(rts.postEntity(domain + MONEY_TRANSFERS, MoneyTransferPayload.class, mt))
 		.thenReturn(new MoneyTransferPayload());
+		String moneyTransfersMapping = MONEY_TRANSFERS + FAKE_ENDPOINT;
 		this.mockMvc.perform(MockMvcRequestBuilders.
 				post(moneyTransfersMapping)
 				.content(mapper.writeValueAsString(mt))

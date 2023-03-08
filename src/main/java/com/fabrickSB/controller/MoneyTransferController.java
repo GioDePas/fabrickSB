@@ -21,15 +21,17 @@ import jakarta.validation.Valid;
 @RestController
 @RequiredArgsConstructor
 public class MoneyTransferController {
+    private final static String ACCOUNT_ID = "accountId";
+    private final static String MONEY_TRANSFER_ENDPOINT = "/money-transfers/{accountId}";
     private final RestTemplateService rts;
     @Value("${DOMAIN}")
     private String domain;
     @Value("${MONEY_TRANSFER_ENDPOINT}")
     private String moneyTransferEndpoint;
 
-    @PostMapping("/money-transfers/{accountId}")
+    @PostMapping(MONEY_TRANSFER_ENDPOINT)
     public ResponseEntity<MoneyTransferPayload> postMoneyTransfer(
-            @PathVariable("accountId") String accountId,
+            @PathVariable(ACCOUNT_ID) String accountId,
             @Valid
             @RequestBody MoneyTransfer moneyTransfer
     ) throws Exception {

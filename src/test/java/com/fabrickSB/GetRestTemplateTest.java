@@ -27,6 +27,12 @@ import com.fabrickSB.service.RestTemplateService;
 @ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 public class GetRestTemplateTest {
+    private static final String BALANCE = "/balance";
+    private static final String TRANSACTIONS = "/transactions";
+    private static final String TO_ACCOUNTING_DATE = "toAccountingDate";
+    private static final String FROM_ACCOUNTING_DATE = "fromAccountingDate";
+    private static final String DATE_TO = "2020-01-01";
+    private static final String DATE_FROM = "2019-01-01";
     @Mock
     private RestTemplate restTemplate;
     @Mock
@@ -50,10 +56,10 @@ public class GetRestTemplateTest {
         ResponseEntity<AccountBalanceResponse> abEntity = ResponseEntity.ok(abr);
 
         Mockito
-                .when(restTemplate.exchange(domain + "/balance", HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), AccountBalanceResponse.class))
+                .when(restTemplate.exchange(domain + BALANCE, HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), AccountBalanceResponse.class))
                 .thenReturn(abEntity);
 
-        AccountBalanceResponse testedAcr = rts.getEntity(domain + "/balance", AccountBalanceResponse.class, null);
+        AccountBalanceResponse testedAcr = rts.getEntity(domain + BALANCE, AccountBalanceResponse.class, null);
         Assertions.assertEquals(abr, testedAcr);
     }
 
@@ -63,15 +69,15 @@ public class GetRestTemplateTest {
         TransactionResponse tr = new TransactionResponse();
         ResponseEntity<TransactionResponse> trEntity = ResponseEntity.ok(tr);
 
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
-        map.add("toAccountingDate", "2020-01-01");
-        map.add("fromAccountingDate", "2019-01-01");
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add(TO_ACCOUNTING_DATE, DATE_TO);
+        map.add(FROM_ACCOUNTING_DATE, DATE_FROM);
 
         Mockito
-                .when(restTemplate.exchange(UriComponentsBuilder.fromUriString(domain + "/transactions").queryParams(map).toUriString(), HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), TransactionResponse.class))
+                .when(restTemplate.exchange(UriComponentsBuilder.fromUriString(domain + TRANSACTIONS).queryParams(map).toUriString(), HttpMethod.GET, new HttpEntity<String>(new HttpHeaders()), TransactionResponse.class))
                 .thenReturn(trEntity);
 
-        TransactionResponse testedTr = rts.getEntity(domain + "/transactions", TransactionResponse.class, map);
+        TransactionResponse testedTr = rts.getEntity(domain + TRANSACTIONS, TransactionResponse.class, map);
         Assertions.assertEquals(tr, testedTr);
     }
 }
